@@ -1,6 +1,4 @@
-from functions.create_postman import create_collection
-from functions.create_postman import create_folder
-from functions.create_postman import create_request
+from functions.create_postman import create_collection, create_folder, create_request
 from functions.fetch_data_postman import fetch_request_data
 from functions.welcome import welcome
 
