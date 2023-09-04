@@ -5,11 +5,11 @@ from functions.welcome import welcome
 api_key, collection_name, folder_name = welcome()
 
 new_collection = create_collection(api_key, collection_name)
-print("\nNew Collection created!")
+#print("\nNew Collection created!")
 collection_id = new_collection['collection']['id']
 
 new_folder = create_folder(api_key, collection_id, folder_name, collection_name)
-print("New Folder created!\n")
+#print("New Folder created!\n")
 folder_id = new_folder['collection']['id']
 
 print("----------------------------------------------------------------------\n")
@@ -33,20 +33,18 @@ except FileNotFoundError:
     print("\nThe 'curl.txt' file was not found. Please create the file and place the curl command in it.")
     exit()
 
-request_method, request_url, request_body, request_params = extract_curl_data(curl_command)
+request_method, request_url, request_body, request_headers = extract_curl_data(curl_command)
 
 print(f"\nRequest Method: {request_method}")
 print(f"Request URL: {request_url}")
 print(f"Request Body: {request_body}")
-print(f"Request Params: {request_params}")
+print(f"Request Headers: {request_headers}")
 
 request_name = 'Teste'
-test_script = ""
+test_script = "console.log()"
 
 print("\n----------------------------------------------------------------------\n")
 
-# request_name, request_method, request_url, test_script = fetch_request_data()
-
-new_request = create_request(api_key, collection_name, collection_id, folder_name, folder_id, request_name, request_method, request_url, test_script) 
-print("\nNew Request created!\n")
+new_request = create_request(api_key, collection_name, collection_id, folder_name, folder_id, request_name, request_method, request_body, request_url, test_script)
+#print("\nNew Request created!\n")
 

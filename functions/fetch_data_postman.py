@@ -1,6 +1,8 @@
 
 import requests
 import re
+import json
+
 
 def fetch_request_data():
 
@@ -26,7 +28,9 @@ def fetch_request_data():
 
     return request_name, request_method, request_url, test_script
 
+
 def extract_curl_data(curl_command):
+
     # Extrai a URL usando uma expressão regular
     url_match = re.search(r'\'(https?://[^\']+)', curl_command)
     request_url = url_match.group(1) if url_match else None
@@ -34,10 +38,11 @@ def extract_curl_data(curl_command):
     # Extrai o corpo da solicitação usando uma expressão regular
     body_match = re.search(r'--data \'([^\']+)\'', curl_command)
     request_body = body_match.group(1) if body_match else ""
+    request_body = json.loads(request_body)
 
-    # Extrai os parâmetros da solicitação usando uma expressão regular
-    params_match = re.search(r'--data-raw \'([^\']+)\'', curl_command)
-    request_params = params_match.group(1) if params_match else ""
+    # Extrai os parâmetros do header usando uma expressão regular
+    headers_match = re.findall(r'--header \'([^\']+)\'', curl_command)
+    request_headers = {header.split(': ', 1)[0]: header.split(': ', 1)[1] for header in headers_match} if headers_match else {}
 
     # Solicita ao usuário o método HTTP em inglês
     while True:
@@ -49,4 +54,5 @@ def extract_curl_data(curl_command):
         else:
             print("\n-----Invalid HTTP method. Please choose a valid method (GET/POST/PUT/DELETE, etc.)-----\n")
 
-    return request_method, request_url, request_body, request_params
+    return request_method, request_url, request_body, request_headers
+
