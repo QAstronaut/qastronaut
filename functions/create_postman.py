@@ -67,8 +67,12 @@ def create_folder(api_key, collection_id, folder_name, collection_name):
     return response.json()
     
    
-def create_request(api_key, collection_name, collection_id, folder_name, folder_id, request_name, request_method, request_body, request_url, request_headers, test_script):
+# <<<<<<< HEAD
+# def create_request(api_key, collection_name, collection_id, folder_name, folder_id, request_name, request_method, request_body, request_url, request_headers, test_script):
     
+# =======
+def create_request(api_key, collection_name, collection_id, folder_name, folder_id, request_name, request_method, request_headers, request_body, request_url, test_script):
+
     url = f"https://api.getpostman.com/collections/{collection_id}"
 
     headers = {
@@ -88,16 +92,19 @@ def create_request(api_key, collection_name, collection_id, folder_name, folder_
         "name": request_name,
         "request": {
             "url": request_url,
-            "method": request_method,
-            #Header não está sendo pega. Caso coloque "Request Headers" da pau. Criar um for para separar "key"(Authorization) e "value"(Token)
-            "request_headers": {
-                "key": "Content-Type", "value": "application/json",  # Exemplo de cabeçalho Content-Type
-                "key": "Authorization", "value": request_headers
-            },
-            "body": {
-                "mode": "raw",
-                "raw": json.dumps(request_body, indent=2)
-        }
+#             "method": request_method,
+# <<<<<<< HEAD
+#             #Header não está sendo pega. Caso coloque "Request Headers" da pau. Criar um for para separar "key"(Authorization) e "value"(Token)
+#             "request_headers": {
+#                 "key": "Content-Type", "value": "application/json",  # Exemplo de cabeçalho Content-Type
+#                 "key": "Authorization", "value": request_headers
+#             },
+#             "body": {
+#                 "mode": "raw",
+#                 "raw": json.dumps(request_body, indent=2)
+#         }
+# =======
+            "header": request_headers,
         },
         "event": [
             {
@@ -110,7 +117,11 @@ def create_request(api_key, collection_name, collection_id, folder_name, folder_
         ]
     }
 
-
+    if request_body is not None:
+        request_item["request"]["body"] = {
+            "mode": "raw",
+            "raw": json.dumps(request_body, indent=2)
+        }
 
     data = {
         "collection": {
