@@ -64,8 +64,8 @@ def create_folder(api_key, collection_id, folder_name, collection_name):
     return response.json()
     
    
-def create_request(api_key, collection_name, collection_id, folder_name, folder_id, request_name, request_method, request_body, request_url, test_script):
-    
+def create_request(api_key, collection_name, collection_id, folder_name, folder_id, request_name, request_method, request_headers, request_body, request_url, test_script):
+
     url = f"https://api.getpostman.com/collections/{collection_id}"
 
     headers = {
@@ -78,14 +78,7 @@ def create_request(api_key, collection_name, collection_id, folder_name, folder_
         "request": {
             "url": request_url,
             "method": request_method,
-            "header": [
-                {"key": "Content-Type", "value": "application/json"},  # Exemplo de cabeçalho Content-Type
-                {"key": "Authorization", "value": "Bearer SeuTokenAqui"} 
-            ],
-            "body": {
-                "mode": "raw",
-                "raw": json.dumps(request_body, indent=2)
-        }
+            "header": request_headers,
         },
         "event": [
             {
@@ -98,7 +91,11 @@ def create_request(api_key, collection_name, collection_id, folder_name, folder_
         ]
     }
 
-
+    if request_body is not None:
+        request_item["request"]["body"] = {
+            "mode": "raw",
+            "raw": json.dumps(request_body, indent=2)
+        }
 
     data = {
         "collection": {
