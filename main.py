@@ -52,10 +52,6 @@ test_script = "console.log()"
 
 print("\n----------------------------------------------------------------------\n")
 
-# <<<<<<< HEAD
-# new_request = create_request(api_key, collection_name, collection_id, folder_name, folder_id, request_name, request_method, request_body, request_url, request_headers, test_script)
-# #print("\nNew Request created!\n")
-# =======
 request_headers = format_headers(headers_dict)
 
 new_request = create_request(api_key, collection_name, collection_id, folder_name, folder_id, request_name, request_method, request_headers, request_body, request_url, test_script)
