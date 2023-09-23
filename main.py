@@ -8,11 +8,9 @@ api_key = welcome()
 collection_name, folder_name = names()
 
 new_collection = create_collection(api_key, collection_name)
-#print("\nNew Collection created!")
 collection_id = new_collection['collection']['id']
 
 new_folder = create_folder(api_key, collection_id, folder_name, collection_name)
-#print("New Folder created!\n")
 folder_id = new_folder['collection']['id']
 
 print("----------------------------------------------------------------------\n")
