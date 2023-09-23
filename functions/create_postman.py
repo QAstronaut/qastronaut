@@ -1,10 +1,6 @@
 import requests
 import json
 
-
-
-import requests
-
 def create_collection(api_key, collection_name):
     url = "https://api.getpostman.com/collections"
 
@@ -32,9 +28,6 @@ def create_collection(api_key, collection_name):
 
     return response.json()
 
-
-
-import requests
 
 def create_folder(api_key, collection_id, folder_name, collection_name):
 
@@ -68,11 +61,6 @@ def create_folder(api_key, collection_id, folder_name, collection_name):
         print(f"Failed to create folder '{folder_name}'. Status code: {response.status_code}\n")
 
     return response.json()
-
-
-
-import json
-import requests
     
    
 def create_request(api_key, collection_name, collection_id, folder_name, folder_id, request_name, request_method, request_headers, request_body, request_url, test_script):

@@ -1,9 +1,11 @@
 from functions.create_postman import create_collection, create_folder, create_request
 from functions.fetch_data_postman import extract_curl_data, format_headers
-from functions.welcome import welcome
+from functions.welcome import welcome, names
 import os
 
-api_key, collection_name, folder_name = welcome()
+api_key = welcome()
+
+collection_name, folder_name = names()
 
 new_collection = create_collection(api_key, collection_name)
 #print("\nNew Collection created!")
