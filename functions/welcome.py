@@ -14,12 +14,15 @@ def welcome():
     # Define o diretório de configuração
     config_dir = 'config'
     requests_dir = 'config/requests'
+    test_dir = 'config/tests'
     test_body_dir = 'config/tests/body'
     test_params_dir = 'config/tests/params'
 
     # Define o diretório de solicitações dentro do diretório de configuração
     requests_dir = os.path.join(config_dir, 'requests')
-    test_body_dir = os.path.join(config_dir, 'tests')
+    test_dir = os.path.join(config_dir, 'tests')
+    test_body_dir = os.path.join(test_dir, 'body')
+    test_params_dir = os.path.join(test_dir, 'params')
 
     # Verifica se o diretório de configuração existe; se não existir, cria
     if not os.path.exists(config_dir):
@@ -28,6 +31,9 @@ def welcome():
     # Verifica se o diretório de solicitações existe; se não existir, cria
     if not os.path.exists(requests_dir):
         os.makedirs(requests_dir)
+
+    if not os.path.exists(test_dir):
+        os.makedirs(test_dir)
 
     if not os.path.exists(test_body_dir):
         os.makedirs(test_body_dir)

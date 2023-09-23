@@ -5,18 +5,8 @@ import os
 
 api_key = welcome()
 
-collection_name, folder_name = names()
-
-new_collection = create_collection(api_key, collection_name)
-collection_id = new_collection['collection']['id']
-
-new_folder = create_folder(api_key, collection_id, folder_name, collection_name)
-folder_id = new_folder['collection']['id']
-
-print("----------------------------------------------------------------------\n")
-
 # Aviso para colocar o comando curl em um arquivo txt
-print("Please put the curl command in a text file named 'curl.txt' and then press 'Enter'.")
+print("\nPlease put the curl command in a text file named 'curl.txt' and then press 'Enter'.")
     
     # Opção de S/n para confirmar se o usuário colocou o comando no arquivo
 user_input = input("\nDid you place the curl command in 'curl.txt'? (S/n): ")
@@ -40,6 +30,14 @@ try:
 except FileNotFoundError:
     print("\nThe 'curl.txt' file was not found in the 'config/requests' directory. Please create the file and place the curl command in it.")
     exit()
+
+collection_name, folder_name = names()
+
+new_collection = create_collection(api_key, collection_name)
+collection_id = new_collection['collection']['id']
+
+new_folder = create_folder(api_key, collection_id, folder_name, collection_name)
+folder_id = new_folder['collection']['id']
 
 
 request_method, request_url, request_body, headers_dict = extract_curl_data(curl_command)
