@@ -1,6 +1,5 @@
 import requests
 import json
-import requests
 
 def create_collection(api_key, collection_name):
     url = "https://api.getpostman.com/collections"
