@@ -1,2 +1,2 @@
 # QAstronaut
-Projeto de um automatizador de suíte de teste em desenvolvimento
+Projeto de um automatizador de suíte de teste em desenvolvimento.
