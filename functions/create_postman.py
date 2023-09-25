@@ -63,8 +63,7 @@ def create_folder(api_key, collection_id, folder_name, collection_name):
     return response.json()
     
    
-def create_request(api_key, collection_name, collection_id, folder_name, folder_id, request_name, request_method, request_headers, request_body, request_url, test_script):
-
+def create_request(api_key, collection_name, collection_id, folder_name, folder_id, request_method, request_headers, request_body, request_url, test_script, user_request_name):
     url = f"https://api.getpostman.com/collections/{collection_id}"
 
     headers = {
@@ -73,7 +72,7 @@ def create_request(api_key, collection_name, collection_id, folder_name, folder_
     }
 
     request_item = {
-        "name": request_name,
+        "name": user_request_name,
         "request": {
             "url": request_url,
             "method": request_method,

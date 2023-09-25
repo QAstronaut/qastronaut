@@ -31,6 +31,25 @@ except FileNotFoundError:
     print("\nThe 'curl.txt' file was not found in the 'config/requests' directory. Please create the file and place the curl command in it.")
     exit()
 
+def get_user_request_names():
+    user_request_names = []
+    user_requests_file = 'user_requests'
+    
+    try:
+        with open(user_requests_file, "r") as file:
+            lines = file.readlines()
+            for line in lines:
+                # Suponhamos que as informações estejam separadas por vírgulas
+                parts = line.strip().split(',')
+                if len(parts) >= 4:
+                    user_request_name = ', '.join(parts)  # Junte todos os elementos da linha
+                    user_request_names.append(user_request_name)
+    except FileNotFoundError:
+        print("\nThe 'user_requests.txt' file was not found. Please create the file and add request names.")
+        exit()
+    
+    return user_request_names
+
 collection_name, folder_name = names()
 
 new_collection = create_collection(api_key, collection_name)
@@ -47,13 +66,15 @@ print(f"Request URL: {request_url}")
 print(f"Request Body: {request_body}")
 print(f"Request Headers: {headers_dict}")
 
-request_name = 'Teste'
 test_script = "console.log()"
 
 print("\n----------------------------------------------------------------------\n")
 
 request_headers = format_headers(headers_dict)
 
-new_request = create_request(api_key, collection_name, collection_id, folder_name, folder_id, request_name, request_method, request_headers, request_body, request_url, test_script)
-#print("\nNew Request created!\n")
+user_request_names = get_user_request_names()
+
+for user_request_name in user_request_names:
+    new_request = create_request(api_key, collection_name, collection_id, folder_name, folder_id, request_method, request_headers, request_body, request_url, test_script, user_request_name)
+    
 
