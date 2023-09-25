@@ -39,10 +39,9 @@ def get_user_request_names():
         with open(user_requests_file, "r") as file:
             lines = file.readlines()
             for line in lines:
-                # Suponhamos que as informações estejam separadas por vírgulas
                 parts = line.strip().split(',')
                 if len(parts) >= 4:
-                    user_request_name = ', '.join(parts)  # Junte todos os elementos da linha
+                    user_request_name = ', '.join(parts) 
                     user_request_names.append(user_request_name)
     except FileNotFoundError:
         print("\nThe 'user_requests.txt' file was not found. Please create the file and add request names.")
@@ -77,4 +76,13 @@ user_request_names = get_user_request_names()
 for user_request_name in user_request_names:
     new_request = create_request(api_key, collection_name, collection_id, folder_name, folder_id, request_method, request_headers, request_body, request_url, test_script, user_request_name)
     
+    response_json = new_request  # Armazene a resposta em uma variável
+    
+    # Verifique o código de status da resposta
+    if 'error' not in response_json:
+        print(f"Request '{user_request_name}' created successfully!")
+    else:
+        print(f"Error creating request '{user_request_name}': {response_json['error']['message']}")
+    
+    # Resto do código permanece o mesmo
 
