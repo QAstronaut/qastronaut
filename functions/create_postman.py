@@ -1,6 +1,6 @@
 import requests
 import json
-import requests
+import copy
 
 def create_collection(api_key, collection_name):
     url = "https://api.getpostman.com/collections"
@@ -62,8 +62,7 @@ def create_folder(api_key, collection_id, folder_name, collection_name):
         print(f"Failed to create folder '{folder_name}'. Status code: {response.status_code}\n")
 
     return response.json()
-    
-   
+
 def create_request(api_key, collection_name, collection_id, folder_name, folder_id, request_name, request_method, request_headers, request_body, request_url, test_script):
 
     url = f"https://api.getpostman.com/collections/{collection_id}"
@@ -112,7 +111,17 @@ def create_request(api_key, collection_name, collection_id, folder_name, folder_
             ]
         }
     }
-
-    response = requests.put(url, headers=headers, json=data)
+    
+    response = requests.post(url, headers=headers, json=data)
+    print(response)
     return response.json()
 
+def create_test_empty(api_key, collection_name, collection_id, folder_name, folder_id, request_name, request_method, request_headers, request_body, request_url, test_script):
+    # Esta função tem como objetivo testar a primeira key do request_body vazia.
+    for key, value in request_body.items():
+        request_name = request_name + str(key)
+        request_body[key] = ''
+        create_request(api_key, collection_name, collection_id, folder_name, folder_id, request_name, request_method, request_headers, request_body, request_url, test_script)
+        request_body[key] = value
+        request_name = "Teste "
+        print(f'{key} foi testada sem valor')

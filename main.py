@@ -1,4 +1,4 @@
-from functions.create_postman import create_collection, create_folder, create_request
+from functions.create_postman import create_collection, create_folder, create_request, create_test_empty
 from functions.fetch_data_postman import extract_curl_data, format_headers
 from functions.welcome import welcome
 import os
@@ -47,7 +47,7 @@ print(f"Request URL: {request_url}")
 print(f"Request Body: {request_body}")
 print(f"Request Headers: {headers_dict}")
 
-request_name = 'Teste'
+request_name = 'Teste '
 test_script = "console.log()"
 
 print("\n----------------------------------------------------------------------\n")
@@ -55,4 +55,6 @@ print("\n----------------------------------------------------------------------\
 request_headers = format_headers(headers_dict)
 
 new_request = create_request(api_key, collection_name, collection_id, folder_name, folder_id, request_name, request_method, request_headers, request_body, request_url, test_script)
+
+new_request_empty = create_test_empty(api_key, collection_name, collection_id, folder_name, folder_id, request_name, request_method, request_headers, request_body, request_url, test_script)
 #print("\nNew Request created!\n")
