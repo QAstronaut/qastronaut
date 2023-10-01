@@ -19,10 +19,10 @@ if user_input.strip().lower() not in ["s", ""]:
     # Lê o conteúdo do arquivo curl.txt
 
 # Define o diretório onde o arquivo "curl.txt" está localizado
-requests_dir = 'config/requests'
+#requests_dir = 'config/requests'
 
 # Define o caminho completo para o arquivo "curl.txt"
-curl_file_path = os.path.join(requests_dir, 'curl.txt')
+curl_file_path = os.path.join('config/requests', 'curl.txt')
 
 try:
     with open(curl_file_path, "r") as file:
@@ -33,12 +33,9 @@ except FileNotFoundError:
 
 collection_name, folder_name = names()
 
-new_collection = create_collection(api_key, collection_name)
-collection_id = new_collection['collection']['id']
+collection_id = create_collection(api_key, collection_name)
 
-new_folder = create_folder(api_key, collection_id, folder_name, collection_name)
-folder_id = new_folder['collection']['id']
-
+folder_id = create_folder(collection_id, folder_name, api_key)
 
 request_method, request_url, request_body, headers_dict = extract_curl_data(curl_command)
 
@@ -54,6 +51,5 @@ print("\n----------------------------------------------------------------------\
 
 request_headers = format_headers(headers_dict)
 
-new_request = create_request(api_key, collection_name, collection_id, folder_name, folder_id, request_name, request_method, request_headers, request_body, request_url, test_script)
-#print("\nNew Request created!\n")
 
+request_id = create_request(api_key, collection_id, folder_id, request_name, request_method, request_headers, request_body, request_url, test_script)

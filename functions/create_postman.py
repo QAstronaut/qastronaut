@@ -22,95 +22,92 @@ def create_collection(api_key, collection_name):
     response = requests.post(url, headers=headers, json=data)
 
     if response.status_code == 200:
-        print(f"\nCollection '{collection_name}' created successfully!")
+        collection_data = response.json()
+        collection_id = collection_data.get('collection', {}).get('uid')
+        if collection_id:
+            print(f"\nCollection '{collection_name}' created successfully with collection_id: {collection_id}")
+            return collection_id
+        else:
+            print(f"\nCollection '{collection_name}' created, but collection_id not found in the response.")
     else:
         print(f"\nFailed to create collection '{collection_name}'. Status code: {response.status_code}")
 
-    return response.json()
+    return None
 
 
-def create_folder(api_key, collection_id, folder_name, collection_name):
+def create_folder(collection_id, folder_name, api_key):
 
-    url = f"https://api.getpostman.com/collections/{collection_id}"
-
+    url = f'https://api.getpostman.com/collections/{collection_id}/folders'
+    
     headers = {
-        "X-Api-Key": api_key,
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json',
+        'X-API-Key': api_key
     }
 
     data = {
-        "collection": {
-            "info": {
-                "name": collection_name,
-                "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-            },
-            "item": [
-                {
-                    "name": folder_name,
-                    "item": []
-                }
-            ]
-        }
+        'name': folder_name
     }
 
-    response = requests.put(url, headers=headers, json=data)
+    response = requests.post(url, headers=headers, json=data)
 
     if response.status_code == 200:
-        print(f"Folder '{folder_name}' created successfully!\n")
+        folder_data = response.json()
+        folder_id = folder_data.get('data', {}).get('id')
+        if folder_id:
+            print(f'\nFolder {folder_name} created successfully with folder_id: {folder_id}')
+            return folder_id
+        else:
+            print(f'\nFolder {folder_name} created, but folder_id not found in the response.')
     else:
-        print(f"Failed to create folder '{folder_name}'. Status code: {response.status_code}\n")
+        print('\nError creating folder:')
+        print(response.text)
+    return None
 
-    return response.json()
+
+def create_request(api_key, collection_id, folder_id, request_name, request_method, request_headers, request_body, request_url, test_script):
     
-   
-def create_request(api_key, collection_name, collection_id, folder_name, folder_id, request_name, request_method, request_headers, request_body, request_url, test_script):
-
-    url = f"https://api.getpostman.com/collections/{collection_id}"
+    url = f'https://api.getpostman.com/collections/{collection_id}/requests?folder={folder_id}'
 
     headers = {
-        "X-Api-Key": api_key,
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json',
+        'X-API-Key': api_key
     }
 
-    request_item = {
+    data = {
         "name": request_name,
-        "request": {
-            "url": request_url,
-            "method": request_method,
-            "header": request_headers,
+        "url": request_url,
+        "method": request_method,
+        "header": request_headers,
+        "dataMode": "raw",
+        "rawModeData": json.dumps(request_body, indent=2),
+        "dataOptions": {
+            "raw": {
+                "language": "json"
+            }
         },
-        "event": [
+        "events": [
             {
                 "listen": "test",
                 "script": {
-                    "type": "text/javascript",
-                    "exec": [test_script]
+                    "id": "a8608e1a-ce4b-4129-8c89-930d26ae0f6a",
+                    "exec": [test_script],
+                    "type": "text/javascript"
                 }
             }
         ]
     }
 
-    if request_body is not None:
-        request_item["request"]["body"] = {
-            "mode": "raw",
-            "raw": json.dumps(request_body, indent=2)
-        }
+    response = requests.post(url, headers=headers, json=data)
 
-    data = {
-        "collection": {
-            "info": {
-                "name": collection_name,
-                "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-            },
-            "item": [
-                {
-                    "id": folder_id,
-                    "name": folder_name,
-                    "item": [request_item]
-                }
-            ]
-        }
-    }
+    if response.status_code == 200:
+        request_data = response.json()
+        request_id = request_data.get('data', {}).get('id')
+        if request_id:
+            print(f"Request '{request_name}' created successfully with request_id: {request_id}")
+            return request_id
+        else:
+            print(f"Request '{request_name}' created, but request_id not found in the response.")
+    else:
+        print(f"Failed to create request '{request_name}'. Status code: {response.status_code}")
 
-    response = requests.put(url, headers=headers, json=data)
-    return response.json()
+    return None
