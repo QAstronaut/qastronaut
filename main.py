@@ -20,9 +20,11 @@ if user_input.strip().lower() not in ["s", ""]:
 
 # Define o diretório onde o arquivo "curl.txt" está localizado
 requests_dir = 'config/requests'
+requests_name_arch = 'config/requests'
 
 # Define o caminho completo para o arquivo "curl.txt"
 curl_file_path = os.path.join(requests_dir, 'curl.txt')
+name_file_path = os.path.join(requests_name_arch, 'user_requests')
 
 try:
     with open(curl_file_path, "r") as file:
@@ -36,12 +38,12 @@ def get_user_request_names():
     user_requests_file = 'user_requests'
     
     try:
-        with open(user_requests_file, "r") as file:
+        with open(name_file_path, "r") as file:
             lines = file.readlines()
             for line in lines:
                 parts = line.strip().split(',')
                 if len(parts) >= 4:
-                    user_request_name = ', '.join(parts) 
+                    user_request_name = '-'.join(parts) 
                     user_request_names.append(user_request_name)
     except FileNotFoundError:
         print("\nThe 'user_requests.txt' file was not found. Please create the file and add request names.")
