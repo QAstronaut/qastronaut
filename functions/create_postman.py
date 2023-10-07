@@ -77,7 +77,7 @@ def create_request(api_key, collection_id, folder_id, request_name, request_meth
         "name": request_name,
         "url": request_url,
         "method": request_method,
-        "header": request_headers,
+        "headers": request_headers,
         "dataMode": "raw",
         "rawModeData": json.dumps(request_body, indent=2),
         "dataOptions": {
