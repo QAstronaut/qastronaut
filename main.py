@@ -19,11 +19,12 @@ if user_input.strip().lower() not in ["s", ""]:
     # Lê o conteúdo do arquivo curl.txt
 
 # Define o diretório onde o arquivo "curl.txt" está localizado
-requests_dir = 'config/requests'
-requests_name_arch = 'config/requests'
+
+#requests_dir = 'config/requests'
 
 # Define o caminho completo para o arquivo "curl.txt"
-curl_file_path = os.path.join(requests_dir, 'curl.txt')
+curl_file_path = os.path.join('config/requests', 'curl.txt')
+requests_name_arch = 'config/requests'
 name_file_path = os.path.join(requests_name_arch, 'user_requests')
 
 try:
@@ -53,12 +54,9 @@ def get_user_request_names():
 
 collection_name, folder_name = names()
 
-new_collection = create_collection(api_key, collection_name)
-collection_id = new_collection['collection']['id']
+collection_id = create_collection(api_key, collection_name)
 
-new_folder = create_folder(api_key, collection_id, folder_name, collection_name)
-folder_id = new_folder['collection']['id']
-
+folder_id = create_folder(collection_id, folder_name, api_key)
 
 request_method, request_url, request_body, headers_dict = extract_curl_data(curl_command)
 
@@ -87,4 +85,3 @@ for user_request_name in user_request_names:
         print(f"Error creating request '{user_request_name}': {response_json['error']['message']}")
     
     # Resto do código permanece o mesmo
-
