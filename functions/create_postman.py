@@ -63,7 +63,6 @@ def create_folder(collection_id, folder_name, api_key):
         print(response.text)
     return None
 
-
 def create_request(api_key, collection_id, folder_id, request_name, request_method, request_headers, request_body, request_url, test_script):
     
     url = f'https://api.getpostman.com/collections/{collection_id}/requests?folder={folder_id}'
