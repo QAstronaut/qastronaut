@@ -35,12 +35,9 @@ except FileNotFoundError:
 
 collection_name, folder_name = names()
 
-new_collection = create_collection(api_key, collection_name)
-collection_id = new_collection['collection']['id']
+collection_id = create_collection(api_key, collection_name)
 
-new_folder = create_folder(api_key, collection_id, folder_name, collection_name)
-folder_id = new_folder['collection']['id']
-
+folder_id = create_folder(collection_id, folder_name, api_key)
 
 request_method, request_url, request_body, headers_dict = extract_curl_data(curl_command)
 
