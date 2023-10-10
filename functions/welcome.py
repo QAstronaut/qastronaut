@@ -1,6 +1,10 @@
 import os
 import json
 
+# Define a variável name_file_path
+requests_name_arch = 'config/requests_names'
+name_file_path = os.path.join(requests_name_arch, 'user_requests')
+
 def welcome():
 
     print(30 * '-' + 'QAstronaut' + 30 * '-')
@@ -15,15 +19,16 @@ def welcome():
     config_dir = 'config'
     requests_dir = 'config/requests'
     test_dir = 'config/tests'
+    request_name_dir ='config/request_name'
     test_body_dir = 'config/tests/body'
     test_params_dir = 'config/tests/params'
 
     # Define o diretório de solicitações dentro do diretório de configuração
     requests_dir = os.path.join(config_dir, 'requests')
     test_dir = os.path.join(config_dir, 'tests')
+    request_name_dir = os.path.join(config_dir, 'requests_names')
     test_body_dir = os.path.join(test_dir, 'body')
     test_params_dir = os.path.join(test_dir, 'params')
-
     # Verifica se o diretório de configuração existe; se não existir, cria
     if not os.path.exists(config_dir):
         os.makedirs(config_dir)
@@ -34,6 +39,9 @@ def welcome():
 
     if not os.path.exists(test_dir):
         os.makedirs(test_dir)
+
+    if not os.path.exists(request_name_dir):
+        os.makedirs(request_name_dir)
 
     if not os.path.exists(test_body_dir):
         os.makedirs(test_body_dir)
@@ -142,3 +150,22 @@ pm.test("Validate error message", function () {pm.expect(messageJsonPath).to.be.
 
     with open(file_path_invalid, "w") as file:
         file.write(test_invalid)
+
+# Adicione a função get_user_request_names() 
+
+def get_user_request_names():
+    user_request_names = []
+
+    try:
+        with open(name_file_path, "r") as file:
+            lines = file.readlines()
+            for line in lines:
+                parts = line.strip().split(',')
+                if len(parts) >= 1:
+                    user_request_name = ','.join(parts)
+                    user_request_names.append(user_request_name)
+    except FileNotFoundError:
+        print("\nThe 'user_requests' file was not found. Please create the file and add request names.")
+        exit()
+
+    return user_request_names
