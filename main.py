@@ -1,6 +1,6 @@
 from functions.create_postman import create_collection, create_folder, create_request
-from functions.fetch_data_postman import extract_curl_data, format_headers
-from functions.welcome import welcome, names, get_user_request_names
+from functions.fetch_data_postman import extract_curl_data
+from functions.welcome import get_user_request_names, welcome, names
 import os
 
 api_key = welcome()
@@ -19,11 +19,13 @@ if user_input.strip().lower() not in ["s", ""]:
     # Lê o conteúdo do arquivo curl.txt
 
 # Define o diretório onde o arquivo "curl.txt" está localizado
-requests_dir = 'config/requests'
+
+#requests_dir = 'config/requests'
 
 # Define o caminho completo para o arquivo "curl.txt"
-curl_file_path = os.path.join(requests_dir, 'curl.txt')
-
+curl_file_path = os.path.join('config/requests', 'curl.txt')
+requests_name_arch = 'config/requests'
+name_file_path = os.path.join(requests_name_arch, 'user_requests')
 
 try:
     with open(curl_file_path, "r") as file:
@@ -39,29 +41,19 @@ collection_id = create_collection(api_key, collection_name)
 
 folder_id = create_folder(collection_id, folder_name, api_key)
 
-request_method, request_url, request_body, headers_dict = extract_curl_data(curl_command)
+request_method, request_url, request_body, request_headers = extract_curl_data(curl_command)
 
 print(f"\nRequest Method: {request_method}")
 print(f"Request URL: {request_url}")
 print(f"Request Body: {request_body}")
-print(f"Request Headers: {headers_dict}")
+print(f"Request Headers: {request_headers}")
 
 test_script = "console.log()"
 
 print("\n----------------------------------------------------------------------\n")
 
-request_headers = format_headers(headers_dict)
-
 user_request_names = get_user_request_names()
 
 for user_request_name in user_request_names:
-    new_request = create_request(api_key, collection_name, collection_id, folder_name, folder_id, request_method, request_headers, request_body, request_url, test_script, user_request_name)
-    
-    response_json = new_request  # Armazene a resposta em uma variável
-    
-    # Verifique o código de status da resposta
-    if 'error' not in response_json:
-        print(f"Request '{user_request_name}' created successfully!")
-    else:
-        print(f"Error creating request '{user_request_name}': {response_json['error']['message']}")
+    request_id = create_request(api_key, collection_id, folder_id, user_request_name, request_method, request_headers, request_body, request_url, test_script)
     
