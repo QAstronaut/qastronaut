@@ -35,7 +35,7 @@ except FileNotFoundError:
 
 def get_user_request_names():
     user_request_names = []
-    user_requests_file = 'user_requests'
+    
     
     try:
         with open(name_file_path, "r") as file:
@@ -46,7 +46,7 @@ def get_user_request_names():
                     user_request_name = '-'.join(parts) 
                     user_request_names.append(user_request_name)
     except FileNotFoundError:
-        print("\nThe 'user_requests.txt' file was not found. Please create the file and add request names.")
+        print("\nThe 'user_requests' file was not found. Please create the file and add request names.")
         exit()
     
     return user_request_names
@@ -87,4 +87,6 @@ for user_request_name in user_request_names:
         print(f"Error creating request '{user_request_name}': {response_json['error']['message']}")
     
     # Resto do código permanece o mesmo
+
+print(user_request_names)
 
