@@ -65,6 +65,3 @@ for user_request_name in user_request_names:
     else:
         print(f"Error creating request '{user_request_name}': {response_json['error']['message']}")
     
-
-print(user_request_names)
-
