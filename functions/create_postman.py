@@ -1,7 +1,5 @@
-from urllib import response
 import requests
 import json
-import copy
 
 def create_collection(api_key, collection_name):
     url = "https://api.getpostman.com/collections"
@@ -65,8 +63,7 @@ def create_folder(collection_id, folder_name, api_key):
         print(response.text)
     return None
 
-
-def create_request(api_key, collection_id, folder_id, user_request_name, request_method, request_headers, request_body, request_url, test_script, collection_name, folder_name, request_item):
+def create_request(api_key, collection_id, folder_id, request_name, request_method, request_headers, request_body, request_url, test_script):
     
     url = f'https://api.getpostman.com/collections/{collection_id}/requests?folder={folder_id}'
 
@@ -76,7 +73,7 @@ def create_request(api_key, collection_id, folder_id, user_request_name, request
     }
 
     data = {
-        "name": user_request_name,
+        "name": request_name,
         "url": request_url,
         "method": request_method,
         "headers": request_headers,
@@ -101,35 +98,6 @@ def create_request(api_key, collection_id, folder_id, user_request_name, request
 
     response = requests.post(url, headers=headers, json=data)
 
-    data = {
-        "collection": {
-            "info": {
-                "name": collection_name,
-                "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-            },
-            "item": [
-                {
-                    "id": folder_id,
-                    "name": folder_name,
-                    "item": [request_item]
-                }
-            ]
-        }
-    }
-    
-    response = requests.post(url, headers=headers, json=data)
-    print(response)
-    return response.json()
-
-def create_test_empty(api_key, collection_name, collection_id, folder_name, folder_id, request_name, request_method, request_headers, request_body, request_url, test_script):
-    # Esta função tem como objetivo testar a primeira key do request_body vazia.
-    for key, value in request_body.items():
-        request_name = request_name + str(key)
-        request_body[key] = ''
-        create_request(api_key, collection_name, collection_id, folder_name, folder_id, request_name, request_method, request_headers, request_body, request_url, test_script)
-        request_body[key] = value
-        request_name = "Teste "
-        print(f'{key} foi testada sem valor')
     if response.status_code == 200:
         request_data = response.json()
         request_id = request_data.get('data', {}).get('id')
