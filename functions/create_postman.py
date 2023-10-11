@@ -1,3 +1,4 @@
+from urllib import response
 import requests
 import json
 import copy
@@ -65,7 +66,7 @@ def create_folder(collection_id, folder_name, api_key):
     return None
 
 
-def create_request(api_key, collection_id, folder_id, request_name, request_method, request_headers, request_body, request_url, test_script):
+def create_request(api_key, collection_id, folder_id, user_request_name, request_method, request_headers, request_body, request_url, test_script, collection_name, folder_name, request_item):
     
     url = f'https://api.getpostman.com/collections/{collection_id}/requests?folder={folder_id}'
 
@@ -75,7 +76,7 @@ def create_request(api_key, collection_id, folder_id, request_name, request_meth
     }
 
     data = {
-        "name": request_name,
+        "name": user_request_name,
         "url": request_url,
         "method": request_method,
         "headers": request_headers,

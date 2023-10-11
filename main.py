@@ -1,4 +1,4 @@
-from functions.create_postman import create_collection, create_folder, create_request
+from functions.create_postman import create_collection, create_folder, create_request, create_test_empty
 from functions.fetch_data_postman import extract_curl_data
 from functions.welcome import get_user_request_names, welcome, names
 import os
@@ -42,25 +42,22 @@ collection_id = create_collection(api_key, collection_name)
 folder_id = create_folder(collection_id, folder_name, api_key)
 
 request_method, request_url, request_body, request_headers = extract_curl_data(curl_command)
+request_method, request_url, request_body, request_headers = extract_curl_data(curl_command)
 
 print(f"\nRequest Method: {request_method}")
 print(f"Request URL: {request_url}")
 print(f"Request Body: {request_body}")
 print(f"Request Headers: {request_headers}")
+print(f"Request Headers: {request_headers}")
 
-request_name = 'Teste '
 test_script = "console.log()"
+user_request_names = get_user_request_names()
 
 print("\n----------------------------------------------------------------------\n")
 
-request_headers = format_headers(headers_dict)
-
-new_request = create_request(api_key, collection_name, collection_id, folder_name, folder_id, request_name, request_method, request_headers, request_body, request_url, test_script)
-
-new_request_empty = create_test_empty(api_key, collection_name, collection_id, folder_name, folder_id, request_name, request_method, request_headers, request_body, request_url, test_script)
-#print("\nNew Request created!\n")
-user_request_names = get_user_request_names()
-
 for user_request_name in user_request_names:
-    request_id = create_request(api_key, collection_id, folder_id, user_request_name, request_method, request_headers, request_body, request_url, test_script)
+    new_request_empty = create_test_empty(api_key, collection_name, collection_id, folder_name, folder_id, user_request_name, request_method, request_headers, request_body, request_url, test_script)
+    new_request = create_request(api_key, collection_name, collection_id, folder_name, folder_id, user_request_name, request_method, request_headers, request_body, request_url, test_script)
+
+#print("\nNew Request created!\n")
     
