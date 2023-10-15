@@ -1,5 +1,5 @@
 from functions.create_postman import create_collection, create_folder, create_request
-from functions.fetch_data_postman import extract_curl_data
+from functions.fetch_data_postman import extract_curl_data, format_headers, format_headers
 from functions.welcome import get_user_request_names, welcome, names
 import os
 
