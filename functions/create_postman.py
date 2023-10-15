@@ -65,7 +65,7 @@ def create_folder(collection_id, folder_name, api_key):
     return None
 
 
-def create_request(api_key, collection_id, folder_id, request_name, request_method, request_headers, request_body, request_url, test_script):
+def create_request(api_key, collection_id, folder_id, request_name, request_method, request_headers, request_body, request_url, test_script, collection_name, folder_name, request_item):
     
     url = f'https://api.getpostman.com/collections/{collection_id}/requests?folder={folder_id}'
 
@@ -75,7 +75,7 @@ def create_request(api_key, collection_id, folder_id, request_name, request_meth
     }
 
     data = {
-        "name": user_request_name,
+        "name": request_name,
         "url": request_url,
         "method": request_method,
         "headers": request_headers,
@@ -120,7 +120,7 @@ def create_request(api_key, collection_id, folder_id, request_name, request_meth
     print(response)
     return response.json()
 
-def create_test_empty(api_key, collection_name, collection_id, folder_name, folder_id, request_name, request_method, request_headers, request_body, request_url, test_script):
+def create_test_empty(api_key, collection_name, collection_id, folder_name, folder_id, request_name, request_method, request_headers, request_body, request_url, test_script, response):
     # Esta função tem como objetivo testar a primeira key do request_body vazia.
     for key, value in request_body.items():
         request_name = request_name + str(key)

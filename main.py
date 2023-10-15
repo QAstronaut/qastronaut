@@ -1,5 +1,5 @@
 from functions.create_postman import create_collection, create_folder, create_request
-from functions.fetch_data_postman import fetch_request_data, extract_curl_data
+from functions.fetch_data_postman import extract_curl_data
 from functions.welcome import welcome
 
 api_key, collection_name, folder_name = welcome()
