@@ -1,6 +1,7 @@
 from functions.create_postman import create_collection, create_folder, create_request
 from functions.fetch_data_postman import extract_curl_data, format_headers, format_headers
 from functions.welcome import get_user_request_names, welcome, names
+
 import os
 
 api_key = welcome()
@@ -63,4 +64,3 @@ user_request_names = get_user_request_names()
 
 for user_request_name in user_request_names:
     request_id = create_request(api_key, collection_id, folder_id, user_request_name, request_method, request_headers, request_body, request_url, test_script)
-    

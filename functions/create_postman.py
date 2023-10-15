@@ -75,7 +75,7 @@ def create_request(api_key, collection_id, folder_id, request_name, request_meth
     }
 
     data = {
-        "name": request_name,
+        "name": user_request_name,
         "url": request_url,
         "method": request_method,
         "headers": request_headers,
