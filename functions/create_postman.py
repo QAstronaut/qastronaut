@@ -65,7 +65,7 @@ def create_folder(collection_id, folder_name, api_key):
     return None
 
 
-def create_request(api_key, collection_id, folder_id, request_name, request_method, request_headers, request_body, request_url, test_script, collection_name, folder_name, request_item):
+def create_request(api_key, collection_id, folder_id, request_name, request_method, request_headers, request_body, request_url, test_script):
     
     url = f'https://api.getpostman.com/collections/{collection_id}/requests?folder={folder_id}'
 
@@ -97,47 +97,39 @@ def create_request(api_key, collection_id, folder_id, request_name, request_meth
             }
         ]
     }
-
-    response = requests.post(url, headers=headers, json=data)
-
-    data = {
-        "collection": {
-            "info": {
-                "name": collection_name,
-                "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-            },
-            "item": [
-                {
-                    "id": folder_id,
-                    "name": folder_name,
-                    "item": [request_item]
-                }
-            ]
-        }
-    }
     
     response = requests.post(url, headers=headers, json=data)
     print(response)
-    return response.json()
+    return response
 
-def create_test_empty(api_key, collection_name, collection_id, folder_name, folder_id, request_name, request_method, request_headers, request_body, request_url, test_script, response):
+def create_test_empty(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url, test_script):
     # Esta função tem como objetivo testar a primeira key do request_body vazia.
     for key, value in request_body.items():
-        request_name = request_name + str(key)
-        request_body[key] = ''
-        create_request(api_key, collection_name, collection_id, folder_name, folder_id, request_name, request_method, request_headers, request_body, request_url, test_script)
-        request_body[key] = value
-        request_name = "Teste "
-        print(f'{key} foi testada sem valor')
+        if type(value) == str or type(value) == float or type(value) == int:
+            user_request_names = user_request_names[0] + str(key)
+            request_body[key] = ''
+            response = create_request(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url, test_script)
+            request_body[key] = value
+            user_request_names = "Teste "
+            print(f'{key} foi testada sem valor')
+        else:
+            user_request_names = user_request_names[0] + str(key)
+            for dic_value in request_body[key]:
+                dic_value = ''
+            response = create_request(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url, test_script)
+            request_body[key] = dic_value
+            user_request_names = "Teste "
+            print(f'{key} foi testado com dicionário vazio')
+                
     if response.status_code == 200:
         request_data = response.json()
         request_id = request_data.get('data', {}).get('id')
         if request_id:
-            print(f"Request '{request_name}' created successfully with request_id: {request_id}")
+            print(f"Request '{user_request_names}' created successfully with request_id: {request_id}")
             return request_id
         else:
-            print(f"Request '{request_name}' created, but request_id not found in the response.")
+            print(f"Request '{user_request_names}' created, but request_id not found in the response.")
     else:
-        print(f"Failed to create request '{request_name}'. Status code: {response.status_code}")
+        print(f"Failed to create request '{user_request_names}'. Status code: {response.status_code}")
 
     return None

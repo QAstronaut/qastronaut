@@ -1,6 +1,6 @@
-from functions.create_postman import create_collection, create_folder, create_request
+from functions.create_postman import create_collection, create_folder, create_test_empty, create_request
 from functions.fetch_data_postman import extract_curl_data
-from functions.welcome import welcome, names
+from functions.welcome import welcome, names, get_user_request_names
 import os
 
 api_key = welcome()
@@ -34,24 +34,6 @@ except FileNotFoundError:
     print("\nThe 'curl.txt' file was not found in the 'config/requests' directory. Please create the file and place the curl command in it.")
     exit()
 
-def get_user_request_names():
-    user_request_names = []
-    user_requests_file = 'user_requests'
-    
-    try:
-        with open(name_file_path, "r") as file:
-            lines = file.readlines()
-            for line in lines:
-                parts = line.strip().split(',')
-                if len(parts) >= 4:
-                    user_request_name = '-'.join(parts) 
-                    user_request_names.append(user_request_name)
-    except FileNotFoundError:
-        print("\nThe 'user_requests.txt' file was not found. Please create the file and add request names.")
-        exit()
-    
-    return user_request_names
-
 collection_name, folder_name = names()
 
 collection_id = create_collection(api_key, collection_name)
@@ -70,6 +52,7 @@ test_script = "console.log()"
 print("\n----------------------------------------------------------------------\n")
 
 user_request_names = get_user_request_names()
+new_request_empty = create_test_empty(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url, test_script)
 
 for user_request_name in user_request_names:
     request_id = create_request(api_key, collection_id, folder_id, user_request_name, request_method, request_headers, request_body, request_url, test_script)
