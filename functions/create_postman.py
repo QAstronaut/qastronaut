@@ -104,23 +104,34 @@ def create_request(api_key, collection_id, folder_id, request_name, request_meth
 
 def create_test_empty(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url, test_script):
     # Esta função tem como objetivo testar a primeira key do request_body vazia.
+    count_user_requests = 0
     for key, value in request_body.items():
         if type(value) == str or type(value) == float or type(value) == int:
-            user_request_names = user_request_names[0] + str(key)
+            request_name = f"{user_request_names[count_user_requests]} {str(key)}"
             request_body[key] = ''
-            response = create_request(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url, test_script)
+            response = create_request(api_key, collection_id, folder_id, request_name, request_method, request_headers, request_body, request_url, test_script)
             request_body[key] = value
-            user_request_names = "Teste "
-            print(f'{key} foi testada sem valor')
+            print(f'{key} foi testada sem Valor')
+            if count_user_requests < len(user_request_names):
+                count_user_requests += 1
         else:
-            user_request_names = user_request_names[0] + str(key)
-            for dic_value in request_body[key]:
-                dic_value = ''
-            response = create_request(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url, test_script)
-            request_body[key] = dic_value
-            user_request_names = "Teste "
-            print(f'{key} foi testado com dicionário vazio')
+            if type(value) == dict:
+                for dict_key, dict_value in value.items():
+                    request_body[dict_value] = ""
+                    response = create_request(api_key, collection_id, folder_id, request_name, request_method, request_headers, request_body, request_url, test_script)
+                    print(f'{key} foi testada sem Valor')
+                    request_body[value[dict_key]] = dict_value
+                    if count_user_requests < len(user_request_names):
+                        count_user_requests += 1
                 
+            # else:
+
+            #     user_request_names = user_request_names[0] + str(key)
+            #     for dic_value in request_body[key]:
+            #         dic_value = ''
+            #     response = create_request(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url, test_script)
+            #     request_body[key] = dic_value
+            #     print(f'{key} foi testado com dicionário vazio')
     if response.status_code == 200:
         request_data = response.json()
         request_id = request_data.get('data', {}).get('id')
