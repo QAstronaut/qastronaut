@@ -1,26 +1,33 @@
 from functions.create_postman import create_collection, create_folder, create_test_empty, create_request
 from functions.fetch_data_postman import extract_curl_data
-from functions.welcome import welcome, names, get_user_request_names
+from functions.welcome import welcome, names, get_user_request_names,lost_api_key
 import os
+import argparse
 
-api_key = welcome()
+
+print(30 * '-' + 'QAstronaut' + 30 * '-')
+
+parser = argparse.ArgumentParser(description='QAstronaut, Your Solution for Agile API Testing!')
+parser.add_argument('--init', action='store_true', help='Perform initial setup')
+args = parser.parse_args()
+
+if args.init:
+    api_key = welcome()
+else:
+    api_key = lost_api_key()
 
 # Aviso para colocar o comando curl em um arquivo txt
-print("\nPlease put the curl command in a text file named 'curl.txt' and then press 'Enter'.")
+print("\n\nPlease put the curl command in a text file named 'curl.txt' and then press 'Enter'.")
     
     # Opção de S/n para confirmar se o usuário colocou o comando no arquivo
-user_input = input("\nDid you place the curl command in 'curl.txt'? (S/n): ")
+user_input = input("\nDid you place the curl command in 'curl.txt'? (Y/n): ")
     
     # Verifica a resposta do usuário
-if user_input.strip().lower() not in ["s", ""]:
+if user_input.strip().lower() not in ["y", ""]:
     print("\nPlease put the curl command in 'curl.txt' and try again.")
     exit()
     
     # Lê o conteúdo do arquivo curl.txt
-
-# Define o diretório onde o arquivo "curl.txt" está localizado
-
-#requests_dir = 'config/requests'
 
 # Define o caminho completo para o arquivo "curl.txt"
 curl_file_path = os.path.join('config/requests', 'curl.txt')
