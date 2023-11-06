@@ -1,9 +1,13 @@
-from functions.create_postman import create_collection, create_folder, create_test_empty, create_request
+from functions.create_postman import create_collection, create_folder, create_test_empty, create_test_null, create_test_nonexistent, create_test_invalid, create_test_lenght
 from functions.fetch_data_postman import extract_curl_data
 from functions.welcome import welcome, names, get_user_request_names,lost_api_key
 import os
 import argparse
+<<<<<<< HEAD
 import sys
+=======
+import time
+>>>>>>> 6c517b4ad5f44a1ff31fa0845d83f10965df9eec
 
 
 print(30 * '-' + 'QAstronaut' + 30 * '-')
@@ -64,7 +68,12 @@ print("\n----------------------------------------------------------------------\
 
 user_request_names = get_user_request_names()
 new_request_empty = create_test_empty(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url, test_script)
-
-for user_request_name in user_request_names:
-    request_id = create_request(api_key, collection_id, folder_id, user_request_name, request_method, request_headers, request_body, request_url, test_script)
-    
+print('----------------------------------------------------------------------------------------------------------------------------')
+new_request_null = create_test_null(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url, test_script)
+print('----------------------------------------------------------------------------------------------------------------------------')
+new_request_noneexistent = create_test_nonexistent(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url, test_script)
+print('----------------------------------------------------------------------------------------------------------------------------')
+new_request_invalid = create_test_invalid(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url, test_script)
+print('----------------------------------------------------------------------------------------------------------------------------')
+new_request_lenght = create_test_lenght(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url, test_script)
+print('--------------------------------------------End--------------------------------------------------------')

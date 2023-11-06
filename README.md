@@ -1,8 +1,10 @@
-
 # QAstronaut
+<<<<<<< HEAD
 
 <span>&#x1f1e7;&#x1f1f7;</span> [Read in Portuguese](README_PT.md)
 
+=======
+>>>>>>> 6c517b4ad5f44a1ff31fa0845d83f10965df9eec
 Welcome to **QAstronaut, Your Solution for Agile API Testing!**
 
 QAstronaut is an ongoing project aimed at automating the execution and creation of test suites. This repository serves as a central space for development, documentation, and collaboration.
