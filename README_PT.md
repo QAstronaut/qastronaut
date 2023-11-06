@@ -10,6 +10,7 @@ O QAstronaut é um projeto em desenvolvimento que visa automatizar a execução 
 - [Instalação](#instalação)
 - [Uso](#uso)
 - [Contribuindo](#contribuindo)
+- [Agradecimentos](#agradecimentos)
 - [Licença](#licença)
 
 ## Visão Geral
@@ -106,6 +107,7 @@ qastronaut/
 │   │       ├── empty.txt
 │   │       ├── invalid.txt
 │   │       ├── noexistent.txt
+│   │       ├── null.txt
 │   │       └── size.txt
 │   └── api_key.json
 │
@@ -130,8 +132,8 @@ Toda a interação com o QAstronaut será realizada via linha de comando para ex
 
 Para incluir uma solicitação HTTP, siga o procedimento abaixo:
 
-1. Salve o cURL da solicitação desejada em um arquivo com o nome `curl.txt`.
-2. Adicione este arquivo ao diretório `config/requests/`.
+1. Salve o cURL da solicitação desejada e cole o mesmo no arquivo com o nome `curl.txt`.
+2. `curl.txt` está no diretório `config/requests/`.
 
 Dessa forma, garantimos uma configuração adequada para as solicitações HTTP em seu ambiente de testes.
 
@@ -148,11 +150,28 @@ Caso prefira, você tem a opção de criar seu próprio script de teste para os 
 
 > **Obs:** No que diz respeito à quantidade de cenários de teste disponíveis, o QAstronaut está comprometido com a melhoria contínua, expandindo seu repertório de heurísticas de teste e ampliando o escopo dos testes de API. Estamos sempre trabalhando para oferecer uma variedade maior de cenários de teste e aprimorar a cobertura geral de testes, garantindo que o QAstronaut continue sendo uma ferramenta valiosa para testes abrangentes de API.
 
-> **Lembre-se** Os demais diretórios do projeto como o `functions/` são pastas que estão ligadas com o funcionamento do QAstronaut, qualquer alteração ou exclusão irá afetar diretamente o funcionamento do mesmo. 
+> **Lembre-se**: Os demais diretórios do projeto como o `functions/` são pastas que estão ligadas com o funcionamento do QAstronaut, qualquer alteração ou exclusão irá afetar diretamente o funcionamento do mesmo. 
 
-#### Parametrizar títulos dos cenários de teste
+#### Personalização dos Títulos dos Cenários de Teste
 
-??????????????????????????????????????????????????
+No QAstronaut, os nomes das [Requisições (Requests)](https://learning.postman.com/docs/sending-requests/requests/) são definidos da seguinte forma:
+
+```text
+CT000 - user_requests - Campo JSON - Cenário
+```
+1. "CT000" representa um contador exclusivo para cada cenário de teste.
+2. "user_requests" é o nome do arquivo que deve ser personalizado para identificar a suíte de teste. 
+> **Atenção**: Certifique-se de preencher o arquivo `user_requests` pois o QAstronaut depende dele para funcionar corretamente, ele está localizado no diretório `config/requests_names/`
+3. O "Campo JSON" refere-se ao campo que está sendo testado no cenário de teste.
+4. O "Cenário" descreve o cenário de teste em si, como "Inexistente," "Vazio," "Nulo," e assim por diante.
+
+Para um exemplo prático, um nome de pedido real pode ser definido da seguinte forma:
+
+```text
+CT023 - CadastrarUsuário - Nome - Vazio
+```
+
+Esta estrutura de nomeação permite uma fácil identificação e rastreamento dos cenários de teste, ajudando a manter seu projeto de testes organizado e eficiente.
 
 ## Criação de suítes de teste
 
@@ -203,13 +222,13 @@ Request Headers: Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJl
 Content-Type: application/json
 
 ----------------------------------------------------------------------
+
+<Response [200]>
+name has been tested empty
+<Response [200]>
+price has been tested empty
+...
 ```
-
-### **Adicionar**
-retorno  de status code no exemplo acima ou criar outra ponto 8. 
-?????????????????????????????????????????????????
-
-Certamente, aqui está a seção "Contribuindo" do seu README em formato Markdown:
 
 
 ## Contribuindo
@@ -274,6 +293,21 @@ Se você tiver sugestões para melhorar o software, adoraríamos ouvir suas idei
 
 Agradecemos a todos os contribuidores pelo seu tempo e esforço dedicados a tornar o projeto **QAstronaut** melhor. Juntos, podemos criar um software mais robusto e eficaz.
 
+## Agradecimentos
+
+Gostaríamos de expressar nossa profunda gratidão às seguintes pessoas que desempenharam papéis fundamentais no sucesso deste projeto:
+
+- [Professor Fabio Vieira]() Queremos estender nosso agradecimento ao Professor Fabio por orientar e supervisionar nosso projeto. Sua orientação acadêmica e apoio foram essenciais para o seu sucesso.
+
+- [Paula Santiago](): Agradecemos a Paula Santiago por compartilhar seu conhecimento prático em garantia de qualidade (QA) e sua experiência com a ferramenta Postman. Suas contribuições foram cruciais para a qualidade do nosso projeto.
+
+- [Samara sobrenome](): Agradecemos a Samara por sua orientação valiosa e mentoria durante todo o processo de desenvolvimento. Sua experiência e insights foram inestimáveis.
+
+- [joão editor]() Agradecemos a João por sua criatividade e por ajudar no desenvolvimento da logo do projeto. Sua contribuição adicionou um toque especial ao nosso trabalho.
+
+Estamos profundamente gratos a essas pessoas por suas contribuições valiosas. Seu apoio e dedicação foram essenciais para o nosso projeto. Obrigado por fazer parte desta jornada conosco.
+
+
 ## Licença
 
-Este projeto é licenciado sob a [Licença MIT](https://github.com/QAstronaut/qastronaut/blob/main/LICENSE)
+Este software é licenciado sob a [Licença MIT](https://github.com/QAstronaut/qastronaut/blob/main/LICENSE)

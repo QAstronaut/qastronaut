@@ -1,6 +1,8 @@
 
 # QAstronaut
 
+<span>&#x1f1e7;&#x1f1f7;</span> [Read in Portuguese](README_PT.md)
+
 Welcome to **QAstronaut, Your Solution for Agile API Testing!**
 
 QAstronaut is an ongoing project aimed at automating the execution and creation of test suites. This repository serves as a central space for development, documentation, and collaboration.
@@ -11,6 +13,7 @@ QAstronaut is an ongoing project aimed at automating the execution and creation 
 - [Installation](#installation)
 - [Usage](#usage)
 - [Contributing](#contributing)
+- [Acknowledgments](#acknowledgments)
 - [License](#license)
 
 ## Overview
@@ -104,6 +107,7 @@ qastronaut/
 │   │       ├── empty.txt
 │   │       ├── invalid.txt
 │   │       ├── nonexistent.txt
+│   │       ├── null.txt
 │   │       └── size.txt
 │   └── api_key.json
 │
@@ -128,8 +132,8 @@ All interaction with QAstronaut is done via command line for execution. At the c
 
 To include an HTTP request, follow the procedure below:
 
-1. Save the cURL command of the desired request in a file named `curl.txt`.
-2. Add this file to the `config/requests/` directory.
+1. Save the cURL of the desired request and paste it into a file named `curl.txt`.
+2. `curl.txt` is located in the `config/requests/` directory.
 
 This ensures proper configuration for HTTP requests in your testing environment.
 
@@ -149,7 +153,25 @@ Alternatively, you have the option to create your test script for the scenarios 
 
 ### Parameterizing Test Scenario Titles
 
-??????????????????????????????????????????????????
+In QAstronaut, the names of [Requests](https://learning.postman.com/docs/sending-requests/requests/) are defined as follows:
+
+```text
+CT000 - user_requests - JSON Field - Scenario
+```
+
+1. "CT000" represents a unique counter for each test scenario.
+2. "user_requests" is the name of the file that should be customized to identify the test suite. 
+> **Attention:** Ensure that you fill in the `user_requests` file because QAstronaut relies on it to function correctly, and it can be found in the `config/requests_names/` directory.
+3. The "JSON Field" refers to the field being tested in the test scenario.
+4. The "Scenario" describes the actual test scenario, such as "Non-existent," "Empty," "Null," and so forth.
+
+For a practical example, a real request name can be defined as follows:
+
+```text
+CT023 - RegisterUser - Name - Empty
+```
+
+This naming structure allows for easy identification and tracking of test scenarios, helping to keep your test project organized and efficient.
 
 ## Creating Test Suites
 
@@ -203,14 +225,13 @@ Request Headers: Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJl
 Content-Type: application/json
 
 ----------------------------------------------------------------------
+
+<Response [200]>
+name has been tested empty
+<Response [200]>
+price has been tested empty
+...
 ```
-
-### **Add**
-
-status code retrieval in the example above or create another point 8.
-?????????????????????????????????????????????????
-
-Certainly, here is the "Contributing" section of your README in Markdown format:
 
 ## Contributing
 
@@ -264,7 +285,7 @@ If you encounter issues or bugs in the software, we appreciate you reporting the
 
 Claro, aqui está a tradução da parte que você solicitou:
 
-### Sugerindo Melhorias
+### Suggesting Enhancements
 
 If you have suggestions for improving the software, we'd love to hear your ideas. Follow these steps to suggest improvements:
 
@@ -275,6 +296,20 @@ If you have suggestions for improving the software, we'd love to hear your ideas
 3. Wait for the project team to consider your suggestion.
 
 We appreciate all contributors for their time and effort dedicated to making the **QAstronaut** project better. Together, we can create more robust and effective software.
+
+## Acknowledgments
+
+We would like to express our deep gratitude to the following individuals who played crucial roles in the success of this project:
+
+- [Professor Fabio Vieira](): We extend our thanks to Professor Fabio for guiding and supervising our project. His academic guidance and support were essential to its success.
+
+- [Paula Santiago](): We thank Paula Santiago for sharing her practical knowledge in Quality Assurance (QA) and her experience with the Postman tool. Her contributions were vital to the quality of our project.
+
+- [Samara LastName](): We express our gratitude to Samara for her valuable guidance and mentoring throughout the development process. Her expertise and insights were invaluable.
+
+- [João Editor](): We appreciate João for his creativity and for assisting in the development of the project's logo. His contribution added a special touch to our work.
+
+We are deeply thankful to these individuals for their valuable contributions. Your support and dedication were essential to our project's success. Thank you for being part of this journey with us.
 
 ## License
 

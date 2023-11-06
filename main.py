@@ -3,6 +3,7 @@ from functions.fetch_data_postman import extract_curl_data
 from functions.welcome import welcome, names, get_user_request_names,lost_api_key
 import os
 import argparse
+import sys
 
 
 print(30 * '-' + 'QAstronaut' + 30 * '-')
@@ -13,6 +14,8 @@ args = parser.parse_args()
 
 if args.init:
     api_key = welcome()
+    print("\n\nPlease put the curl command in a text file named 'curl.txt'.")
+    sys.exit()
 else:
     api_key = lost_api_key()
 
@@ -41,13 +44,14 @@ except FileNotFoundError:
     print("\nThe 'curl.txt' file was not found in the 'config/requests' directory. Please create the file and place the curl command in it.")
     exit()
 
+request_method, request_url, request_body, request_headers = extract_curl_data(curl_command)
+
 collection_name, folder_name = names()
 
 collection_id = create_collection(api_key, collection_name)
 
 folder_id = create_folder(collection_id, folder_name, api_key)
 
-request_method, request_url, request_body, request_headers = extract_curl_data(curl_command)
 
 print(f"\nRequest Method: {request_method}")
 print(f"Request URL: {request_url}")
