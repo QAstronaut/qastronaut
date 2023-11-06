@@ -133,10 +133,10 @@ def create_test_empty(api_key, collection_id, folder_id, user_request_names, req
         request_id = request_data.get('data', {}).get('id')
         if request_id:
             # print(f"Request '{user_request_names}' created successfully with request_id: {request_id}")
-            print('------------------------------------------------------------')
+            pass
             return request_id
         else:
-            print('------------------------------------------------------------')
+            pass
             # print(f"Request '{user_request_names}' created, but request_id not found in the response.")
     else:
         print(f"Failed to create request '{user_request_names}'. Status code: {response.status_code}")
@@ -170,10 +170,10 @@ def create_test_null(api_key, collection_id, folder_id, user_request_names, requ
         request_id = request_data.get('data', {}).get('id')
         if request_id:
             # print(f"Request '{user_request_names}' created successfully with request_id: {request_id}")
-            print('------------------------------------------------------------')
+            pass
             return request_id
         else:
-            print('------------------------------------------------------------')
+            pass
             # print(f"Request '{user_request_names}' created, but request_id not found in the response.")
     else:
         print(f"Failed to create request '{user_request_names}'. Status code: {response.status_code}")
@@ -209,10 +209,10 @@ def create_test_nonexistent(api_key, collection_id, folder_id, user_request_name
         request_id = request_data.get('data', {}).get('id')
         if request_id:
             # print(f"Request '{user_request_names}' created successfully with request_id: {request_id}")
-            print('------------------------------------------------------------')
+            pass
             return request_id
         else:
-            print('------------------------------------------------------------')
+            pass
             # print(f"Request '{user_request_names}' created, but request_id not found in the response.")
     else:
         print(f"Failed to create request '{user_request_names}'. Status code: {response.status_code}")
@@ -243,10 +243,10 @@ def create_test_invalid(api_key, collection_id, folder_id, user_request_names, r
         request_id = request_data.get('data', {}).get('id')
         if request_id:
             # print(f"Request '{user_request_names}' created successfully with request_id: {request_id}")
-            print('------------------------------------------------------------')
+            pass
             return request_id
         else:
-            print('------------------------------------------------------------')
+            pass
             # print(f"Request '{user_request_names}' created, but request_id not found in the response.")
     else:
         print(f"Failed to create request '{user_request_names}'. Status code: {response.status_code}")
@@ -297,10 +297,10 @@ def create_test_lenght(api_key, collection_id, folder_id, user_request_names, re
         request_id = request_data.get('data', {}).get('id')
         if request_id:
             # print(f"Request '{user_request_names}' created successfully with request_id: {request_id}")
-            print('------------------------------------------------------------')
+            pass
             return request_id
         else:
-            print('------------------------------------------------------------')
+            pass
             # print(f"Request '{user_request_names}' created, but request_id not found in the response.")
     else:
         print(f"Failed to create request '{user_request_names}'. Status code: {response.status_code}")
