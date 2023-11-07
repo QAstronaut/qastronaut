@@ -1,10 +1,7 @@
 # QAstronaut
-<<<<<<< HEAD
 
 <span>&#x1f1e7;&#x1f1f7;</span> [Read in Portuguese](README_PT.md)
 
-=======
->>>>>>> 6c517b4ad5f44a1ff31fa0845d83f10965df9eec
 Welcome to **QAstronaut, Your Solution for Agile API Testing!**
 
 QAstronaut is an ongoing project aimed at automating the execution and creation of test suites. This repository serves as a central space for development, documentation, and collaboration.
@@ -307,9 +304,9 @@ We would like to express our deep gratitude to the following individuals who pla
 
 - [Paula Santiago](): We thank Paula Santiago for sharing her practical knowledge in Quality Assurance (QA) and her experience with the Postman tool. Her contributions were vital to the quality of our project.
 
-- [Samara LastName](): We express our gratitude to Samara for her valuable guidance and mentoring throughout the development process. Her expertise and insights were invaluable.
+- [Samara Suelen Garofalo](): We express our gratitude to Samara for her valuable guidance and mentoring throughout the development process. Her expertise and insights were invaluable.
 
-- [João Editor](): We appreciate João for his creativity and for assisting in the development of the project's logo. His contribution added a special touch to our work.
+- [Enzo Marinho](): We appreciate Enzo for his creativity and for assisting in the development of the project's logo. His contribution added a special touch to our work.
 
 We are deeply thankful to these individuals for their valuable contributions. Your support and dedication were essential to our project's success. Thank you for being part of this journey with us.
 

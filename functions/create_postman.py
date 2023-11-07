@@ -221,7 +221,7 @@ def create_test_nonexistent(api_key, collection_id, folder_id, user_request_name
 
 def create_test_invalid(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url, test_script):
     # Esta função tem como objetivo testar a primeira key do request_body vazia.
-    types_values = {str: 1, int: 'Teste', float: {}, dict: ['Teste'], list: 1.2}
+    types_values = {str: 1, int: 'Teste', float: 'Teste', dict: ['Teste'], list: 1.2}
     for key, value in request_body.items():
         if type(value) != dict and type(value) != list:
             request_name = f"{user_request_names[0]} {str(key)} Inválido"

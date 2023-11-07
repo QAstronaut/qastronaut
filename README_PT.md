@@ -301,9 +301,9 @@ Gostaríamos de expressar nossa profunda gratidão às seguintes pessoas que des
 
 - [Paula Santiago](): Agradecemos a Paula Santiago por compartilhar seu conhecimento prático em garantia de qualidade (QA) e sua experiência com a ferramenta Postman. Suas contribuições foram cruciais para a qualidade do nosso projeto.
 
-- [Samara sobrenome](): Agradecemos a Samara por sua orientação valiosa e mentoria durante todo o processo de desenvolvimento. Sua experiência e insights foram inestimáveis.
+- [Samara Suelen Garofalo](): Agradecemos a Samara por sua orientação valiosa e mentoria durante todo o processo de desenvolvimento. Sua experiência e insights foram inestimáveis.
 
-- [joão editor]() Agradecemos a João por sua criatividade e por ajudar no desenvolvimento da logo do projeto. Sua contribuição adicionou um toque especial ao nosso trabalho.
+- [Enzo Marinho]() Agradecemos a Enzo por sua criatividade e por ajudar no desenvolvimento da logo do projeto. Sua contribuição adicionou um toque especial ao nosso trabalho.
 
 Estamos profundamente gratos a essas pessoas por suas contribuições valiosas. Seu apoio e dedicação foram essenciais para o nosso projeto. Obrigado por fazer parte desta jornada conosco.
 
