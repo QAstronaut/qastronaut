@@ -3,7 +3,6 @@ import json
 import copy
 import simplejson as json
 from decimal import Decimal
-from collections import OrderedDict
 
 def create_collection(api_key, collection_name):
     url = "https://api.getpostman.com/collections"
@@ -67,7 +66,6 @@ def create_folder(collection_id, folder_name, api_key):
         print(response.text)
     return None
 
-
 def create_request(api_key, collection_id, folder_id, request_name, request_method, request_headers, request_body, request_url, test_script):
     
     url = f'https://api.getpostman.com/collections/{collection_id}/requests?folder={folder_id}'
@@ -127,6 +125,7 @@ def create_test_empty(api_key, collection_id, folder_id, user_request_names, req
                     response = create_request(api_key, collection_id, folder_id, request_name, request_method, request_headers, request_body, request_url, test_script)
                     request_body[key][dict_key] = dict_value
                     print(f'{key} foi testada sem Valor')
+
 
     if response.status_code == 200:
         request_data = response.json()
@@ -306,7 +305,3 @@ def create_test_lenght(api_key, collection_id, folder_id, user_request_names, re
         print(f"Failed to create request '{user_request_names}'. Status code: {response.status_code}")
 
     return None
-
-
-
-
