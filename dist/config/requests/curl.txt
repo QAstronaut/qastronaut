@@ -1,0 +1,16 @@
+curl 'https://serverest.dev/produtos' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkFteTg0QGhvdG1haWwuY29tIiwicGFzc3dvcmQiOiJJTUlVQmpOU1hKSnN2RXMiLCJpYXQiOjE2OTMzNDkwNjcsImV4cCI6MTY5MzM0OTY2N30.B2Rc1H8iR0saTeY9FsX7bo2lDHla_frX0FR6Uz8AjLY' \
+--header 'Content-Type: application/json' \
+--data '{
+  "nome": "Cheese IV",
+  "preco": 524,
+  "descricao": "Produto",
+  "detalhes": {
+    "peso": "100g",
+    "fabricante": "Empresa XYZ"
+  },
+  "imagens": [
+    "imagem1.jpg",
+    "imagem2.jpg"
+  ]
+}'
