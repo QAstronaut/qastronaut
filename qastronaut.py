@@ -59,18 +59,18 @@ print(f"Request URL: {request_url}")
 print(f"Request Body: {request_body}")
 print(f"Request Headers: {request_headers}")
 
-test_script = "console.log()"
+test_script = ""
 
 print("\n('----------------------------------------------------------------------------------------------------------------------------')n")
 
 user_request_names = get_user_request_names()
-new_request_empty = create_test_empty(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url, test_script)
+new_request_empty = create_test_empty(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url)
 print('----------------------------------------------------------------------------------------------------------------------------')
-new_request_null = create_test_null(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url, test_script)
+new_request_null = create_test_null(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url)
 print('----------------------------------------------------------------------------------------------------------------------------')
-new_request_noneexistent = create_test_nonexistent(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url, test_script)
+new_request_noneexistent = create_test_nonexistent(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url)
 print('----------------------------------------------------------------------------------------------------------------------------')
-new_request_invalid = create_test_invalid(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url, test_script)
+new_request_invalid = create_test_invalid(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url)
 print('----------------------------------------------------------------------------------------------------------------------------')
-new_request_lenght = create_test_lenght(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url, test_script)
+new_request_lenght = create_test_lenght(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url)
 print('---------------------------------------------------End----------------------------------------------------------------------')
