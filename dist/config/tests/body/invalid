@@ -1,9 +1,0 @@
-var resbody = JSON.parse(responseBody)
-
-var statusCode = 400
-var messageError = ""
-var messageJsonPath = "resbody.message"
-
-pm.test("Status code is " + statusCode, function () {pm.response.to.have.status(statusCode);});
-
-pm.test("Validate error message", function () {pm.expect(messageJsonPath).to.be.contains(messageError);}); 
