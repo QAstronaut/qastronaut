@@ -4,6 +4,8 @@
 
 Welcome to **QAstronaut, Your Solution for Agile API Testing!**
 
+![GitHub Logo](/images/logo_qastronaut.png)
+
 QAstronaut is an ongoing project aimed at automating the execution and creation of test suites. This repository serves as a central space for development, documentation, and collaboration.
 
 ## Table of Contents
@@ -82,7 +84,7 @@ Ensure that you have the following requirements met before getting started:
 3. Next, run the command:
 
     ```bash
-    python main.py --init
+    python qastronaut.py --init
     ```
     > **Note:** In some cases, you may need to use `python3` instead of `python` to invoke the Python 3 interpreter on Linux.
 
@@ -92,13 +94,14 @@ Ensure that you have the following requirements met before getting started:
 
 ## Usage
 
-After installation, you will have a folder structure like this:
+After installation you will have a folder structure similar to this:
 
 ```bash
 qastronaut/
 │
 ├── config/
 │   ├── requests/
+│   │   └── curl.txt
 │   ├── requests_names/
 │   │   └── user_requests.txt
 │   ├── tests/
@@ -115,7 +118,15 @@ qastronaut/
 │   ├── fetch_data_postman.py
 │   └── welcome.py
 │
-├── main.py
+├── images/
+│   └── logo_qastronaut.png
+│
+├── unit_tests/
+│   ├── test_create_postman.py
+│   ├── test_fetch_data_postman.py
+│   └── test_welcome.py
+│
+├── qastronaut.py
 ├── README.md
 ├── requirements.txt
 └── LICENSE 
@@ -176,13 +187,13 @@ This naming structure allows for easy identification and tracking of test scenar
 
 Once the `curl.txt` file has been created and placed in the `config/requests/` directory, you are ready to run QAstronaut. Follow these steps:
 
-1. Navigate to the `qastronaut/` directory, which contains the `main.py`
+1. Navigate to the `qastronaut/` directory, which contains the `qastronaut.py`
 
  file.
 2. Execute the following command:
 
 ```bash
-python main.py
+python qastronaut.py
 ```
 
 > **Note:** In some cases, especially on Linux, you may need to use `python3` instead of `python` to invoke the Python 3 interpreter.
@@ -300,13 +311,13 @@ We appreciate all contributors for their time and effort dedicated to making the
 
 We would like to express our deep gratitude to the following individuals who played crucial roles in the success of this project:
 
-- [Professor Fabio Vieira](): We extend our thanks to Professor Fabio for guiding and supervising our project. His academic guidance and support were essential to its success.
+- Professor Dr. Fabio Vieira: We extend our thanks to Professor Dr. Fabio for guiding and supervising our project. His academic guidance and support were essential to its success.
 
-- [Paula Santiago](): We thank Paula Santiago for sharing her practical knowledge in Quality Assurance (QA) and her experience with the Postman tool. Her contributions were vital to the quality of our project.
+- [Paula Santiago](https://www.linkedin.com/in/paulasanty): We thank Paula Santiago for sharing her practical knowledge in Quality Assurance (QA) and her experience with the Postman tool. Her contributions were vital to the quality of our project.
 
-- [Samara Suelen Garofalo](): We express our gratitude to Samara for her valuable guidance and mentoring throughout the development process. Her expertise and insights were invaluable.
+- [Samara Suelen Garofalo](https://github.com/samaragarofalo): We express our gratitude to Samara for her valuable guidance and mentoring throughout the development process. Her expertise and insights were invaluable.
 
-- [Enzo Marinho](): We appreciate Enzo for his creativity and for assisting in the development of the project's logo. His contribution added a special touch to our work.
+- Enzo Marinho: We appreciate Enzo for his creativity and for assisting in the development of the project's logo. His contribution added a special touch to our work.
 
 We are deeply thankful to these individuals for their valuable contributions. Your support and dedication were essential to our project's success. Thank you for being part of this journey with us.
 

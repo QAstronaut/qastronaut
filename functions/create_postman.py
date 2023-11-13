@@ -105,32 +105,36 @@ def create_request(api_key, collection_id, folder_id, request_name, request_meth
     print(response)
     return response
 
-def create_test_empty(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url, test_script):
+def create_test_empty(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url):
+
+    with open('config/tests/body/empty', 'r') as file:
+        test_script = file.read()
+
     # Esta função tem como objetivo testar a primeira key do request_body vazia.
     global ct_counter
     for key, value in request_body.items():
         if type(value) != dict:
-            request_name = f"CT{str(ct_counter).zfill(3)} {user_request_names[0]} {str(key)} Vazio"
+            request_name = f"CT{str(ct_counter).zfill(3)} {user_request_names[0]} {str(key)} Empty"
             ct_counter += 1
             request_body[key] = '' if type(value) != list else []
             response = create_request(api_key, collection_id, folder_id, request_name, request_method, request_headers, request_body, request_url, test_script)
             request_body[key] = value
-            print(f'{key} foi testada sem Valor')
+            print(f'{key} was tested Empty')
         else:
             if type(value) == dict:
-                request_name = f"CT{str(ct_counter).zfill(3)} {user_request_names[0]} {str(key)} Vazio"
+                request_name = f"CT{str(ct_counter).zfill(3)} {user_request_names[0]} {str(key)} Empty"
                 ct_counter += 1
                 request_body[key] = {}
                 response = create_request(api_key, collection_id, folder_id, request_name, request_method, request_headers, request_body, request_url, test_script)
                 request_body[key] = value
-                print(f'{key} foi testada sem Valor')
+                print(f'{key} was tested Empty')
                 for dict_key, dict_value in value.items():
-                    request_name = f"CT{str(ct_counter).zfill(3)} {user_request_names[0]} {str(key)} Vazio"
+                    request_name = f"CT{str(ct_counter).zfill(3)} {user_request_names[0]} {str(key)} Empty"
                     ct_counter += 1
                     request_body[key][dict_key] = ""
                     response = create_request(api_key, collection_id, folder_id, request_name, request_method, request_headers, request_body, request_url, test_script)
                     request_body[key][dict_key] = dict_value
-                    print(f'{key} foi testada sem Valor')
+                    print(f'{key} was tested Empty')
 
 
     if response.status_code == 200:
@@ -148,31 +152,35 @@ def create_test_empty(api_key, collection_id, folder_id, user_request_names, req
 
     return None
 
-def create_test_null(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url, test_script):
+def create_test_null(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url):
+
+    with open('config/tests/body/null', 'r') as file:
+        test_script = file.read()
+
     # Esta função tem como objetivo testar a primeira key do request_body vazia.
     global ct_counter
     for key, value in request_body.items():
         if type(value) != dict:
-            request_name = f"CT{str(ct_counter).zfill(3)} {user_request_names[0]} {str(key)} Nulo"
+            request_name = f"CT{str(ct_counter).zfill(3)} {user_request_names[0]} {str(key)} Null"
             ct_counter += 1
             request_body[key] = None if type(value) != list else None
             response = create_request(api_key, collection_id, folder_id, request_name, request_method, request_headers, request_body, request_url, test_script)
             request_body[key] = value
-            print(f'{key} foi testada Nulo')
+            print(f'{key} was tested Null')
         else:
-            request_name = f"CT{str(ct_counter).zfill(3)} {user_request_names[0]} {str(key)} Nulo"
+            request_name = f"CT{str(ct_counter).zfill(3)} {user_request_names[0]} {str(key)} Null"
             ct_counter += 1
             request_body[key] = None
             response = create_request(api_key, collection_id, folder_id, request_name, request_method, request_headers, request_body, request_url, test_script)
             request_body[key] = value
-            print(f'{key} foi testada Nulo')
+            print(f'{key} was tested Null')
             for dict_key, dict_value in value.items():
-                request_name = f"CT{str(ct_counter).zfill(3)} {user_request_names[0]} {key}/{str(dict_key)} Nulo"
+                request_name = f"CT{str(ct_counter).zfill(3)} {user_request_names[0]} {key}/{str(dict_key)} Null"
                 ct_counter += 1
                 request_body[key][dict_key] = None
                 response = create_request(api_key, collection_id, folder_id, request_name, request_method, request_headers, request_body, request_url, test_script)
                 request_body[key][dict_key] = dict_value
-                print(f'{key} foi testada Nulo')
+                print(f'{key} was tested Null')
 
     if response.status_code == 200:
         request_data = response.json()
@@ -189,33 +197,37 @@ def create_test_null(api_key, collection_id, folder_id, user_request_names, requ
 
     return None
 
-def create_test_nonexistent(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url, test_script):
+def create_test_nonexistent(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url):
+
+    with open('config/tests/body/nonexistent', 'r') as file:
+        test_script = file.read()
+
     # Esta função tem como objetivo testar a primeira key do request_body vazia.
     global ct_counter
     FIX_BODY = copy.deepcopy(request_body)
     for key, value in request_body.items():
         if type(value) != dict:
-            request_name = f"CT{str(ct_counter).zfill(3)} {user_request_names[0]} {str(key)} Inexistente"
+            request_name = f"CT{str(ct_counter).zfill(3)} {user_request_names[0]} {str(key)} Nonexistent"
             ct_counter += 1
             del FIX_BODY[key]
             response = create_request(api_key, collection_id, folder_id, request_name, request_method, request_headers, FIX_BODY, request_url, test_script)
             FIX_BODY = copy.deepcopy(request_body)
-            print(f'{key} foi testada Inexistente')
+            print(f'{key} was tested Nonexistent')
         else:
             if type(value) == dict:
-                request_name = f"CT{str(ct_counter).zfill(3)} {user_request_names[0]} {str(key)} Inexistente"
+                request_name = f"CT{str(ct_counter).zfill(3)} {user_request_names[0]} {str(key)} Nonexistent"
                 ct_counter += 1
                 del FIX_BODY[key]
                 response = create_request(api_key, collection_id, folder_id, request_name, request_method, request_headers, FIX_BODY, request_url, test_script)
                 FIX_BODY = copy.deepcopy(request_body)
-                print(f'{key} foi testada Inexistente')
+                print(f'{key} was tested Nonexistent')
                 for dict_key, dict_value in value.items():
-                    request_name = f"CT{str(ct_counter).zfill(3)} {user_request_names[0]} {key}/{str(dict_key)} Inexistente"
+                    request_name = f"CT{str(ct_counter).zfill(3)} {user_request_names[0]} {key}/{str(dict_key)} Nonexistent"
                     ct_counter += 1
                     del FIX_BODY[key][dict_key]
                     response = create_request(api_key, collection_id, folder_id, request_name, request_method, request_headers, FIX_BODY, request_url, test_script)
                     FIX_BODY = copy.deepcopy(request_body)
-                    print(f'{key} foi testada Inexistente')
+                    print(f'{key} was tested Nonexistent')
 
     if response.status_code == 200:
         request_data = response.json()
@@ -232,27 +244,31 @@ def create_test_nonexistent(api_key, collection_id, folder_id, user_request_name
 
     return None
 
-def create_test_invalid(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url, test_script):
+def create_test_invalid(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url):
+
+    with open('config/tests/body/invalid', 'r') as file:
+        test_script = file.read()
+    
     # Esta função tem como objetivo testar a primeira key do request_body vazia.
     global ct_counter
     types_values = {str: 1, int: 'Teste', float: 'Teste', dict: ['Teste'], list: 1.2}
     for key, value in request_body.items():
         if type(value) != dict and type(value) != list:
-            request_name = f"CT{str(ct_counter).zfill(3)} {user_request_names[0]} {str(key)} Inválido"
+            request_name = f"CT{str(ct_counter).zfill(3)} {user_request_names[0]} {str(key)} Invalid"
             ct_counter += 1
             request_body[key] = types_values[type(value)]
             response = create_request(api_key, collection_id, folder_id, request_name, request_method, request_headers, request_body, request_url, test_script)
             request_body[key] = value
-            print(f'{key} foi testada Inválido')
+            print(f'{key} was tested Invalid')
         else:
             if type(value) != list:
                 for dict_key, dict_value in value.items():
-                    request_name = f"CT{str(ct_counter).zfill(3)} {user_request_names[0]} {key}/{str(dict_key)} Inválido"
+                    request_name = f"CT{str(ct_counter).zfill(3)} {user_request_names[0]} {key}/{str(dict_key)} Invalid"
                     ct_counter += 1
                     request_body[key][dict_key] = types_values[type(value)]
                     response = create_request(api_key, collection_id, folder_id, request_name, request_method, request_headers, request_body, request_url, test_script)
                     request_body[key][dict_key] = dict_value
-                    print(f'{key} foi testada Inválido')
+                    print(f'{key} was tested Invalid')
 
     if response.status_code == 200:
         request_data = response.json()
@@ -270,12 +286,16 @@ def create_test_invalid(api_key, collection_id, folder_id, user_request_names, r
     return None
 
 
-def create_test_lenght(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url, test_script):
+def create_test_lenght(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url):
+
+    with open('config/tests/body/size', 'r') as file:
+        test_script = file.read()
+    
     # Esta função tem como objetivo testar a primeira key do request_body vazia.
     global ct_counter
     for key, value in request_body.items():
         if type(value) != dict and type(value) != list:
-            request_name = f"CT{str(ct_counter).zfill(3)} {user_request_names[0]} {str(key)} Tamanho" 
+            request_name = f"CT{str(ct_counter).zfill(3)} {user_request_names[0]} {str(key)} Lenght" 
             ct_counter += 1
             if type(value) == str:
                 request_body[key] = (str(value).rstrip() + ' ') * 100
@@ -289,13 +309,13 @@ def create_test_lenght(api_key, collection_id, folder_id, user_request_names, re
                     request_body[key] = decimal_value
             response = create_request(api_key, collection_id, folder_id, request_name, request_method, request_headers, request_body, request_url, test_script)
             request_body[key] = value
-            print(f'{key} foi testada sem Tamanho')
+            print(f'{key} was tested Size')
         else:
             if type(value) == dict:
                 for dict_key, dict_value in value.items():
                     if type(dict_value) != dict:
                         if type(dict_value) == str:
-                            request_name = f"CT{str(ct_counter).zfill(3)} {user_request_names[0]} {str(key)} Tamanho" 
+                            request_name = f"CT{str(ct_counter).zfill(3)} {user_request_names[0]} {str(key)} Lenght" 
                             ct_counter += 1
                             request_body[key][dict_key] = (str(dict_value).rstrip() + ' ') * 100
                         else:
@@ -308,7 +328,7 @@ def create_test_lenght(api_key, collection_id, folder_id, user_request_names, re
                                 request_body[key][dict_key] = decimal_value
                         response = create_request(api_key, collection_id, folder_id, request_name, request_method, request_headers, request_body, request_url, test_script)
                         request_body[key][dict_key] = dict_value
-                        print(f'{key} foi testada sem Tamanho')
+                        print(f'{key} was tested Size')
             elif type(value) == list:
                 pass
     if response.status_code == 200:
