@@ -129,7 +129,7 @@ def create_test_empty(api_key, collection_id, folder_id, user_request_names, req
                 request_body[key] = value
                 print(f'{key} was tested Empty')
                 for dict_key, dict_value in value.items():
-                    request_name = f"CT{str(ct_counter).zfill(3)} {user_request_names[0]} {str(key)} Empty"
+                    request_name = f"CT{str(ct_counter).zfill(3)} {user_request_names[0]} {key}/{str(dict_key)} Empty"
                     ct_counter += 1
                     request_body[key][dict_key] = ""
                     response = create_request(api_key, collection_id, folder_id, request_name, request_method, request_headers, request_body, request_url, test_script)
@@ -251,7 +251,7 @@ def create_test_invalid(api_key, collection_id, folder_id, user_request_names, r
     
     # Esta função tem como objetivo testar a primeira key do request_body vazia.
     global ct_counter
-    types_values = {str: 1, int: 'Teste', float: 'Teste', dict: ['Teste'], list: 1.2}
+    types_values = {str: 1, int: 'Teste', float: 'Teste', dict: 1, list: 1.2}
     for key, value in request_body.items():
         if type(value) != dict and type(value) != list:
             request_name = f"CT{str(ct_counter).zfill(3)} {user_request_names[0]} {str(key)} Invalid"
@@ -315,7 +315,7 @@ def create_test_lenght(api_key, collection_id, folder_id, user_request_names, re
                 for dict_key, dict_value in value.items():
                     if type(dict_value) != dict:
                         if type(dict_value) == str:
-                            request_name = f"CT{str(ct_counter).zfill(3)} {user_request_names[0]} {str(key)} Lenght" 
+                            request_name = f"CT{str(ct_counter).zfill(3)} {user_request_names[0]} {key}/{str(dict_key)} Lenght" 
                             ct_counter += 1
                             request_body[key][dict_key] = (str(dict_value).rstrip() + ' ') * 100
                         else:
