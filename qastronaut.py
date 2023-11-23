@@ -3,7 +3,6 @@ from functions.fetch_data_postman import extract_curl_data
 from functions.welcome import welcome, names, get_user_request_names,lost_api_key
 import os
 import argparse
-import sys
 
 
 
@@ -15,23 +14,30 @@ args = parser.parse_args()
 
 if args.init:
     api_key = welcome()
-    print("\n\nPlease put the curl command in a text file named 'curl.txt'.")
-    sys.exit()
+    print("\n\nPlease put the curl command in a text file named 'config/requests/curl.txt'.")
+    exit()
 else:
     api_key = lost_api_key()
 
 # Aviso para colocar o comando curl em um arquivo txt
-print("\n\nPlease put the curl command in a text file named 'curl.txt' and then press 'Enter'.")
+print("\n\nPlease put the curl command in a text file named 'config/requests/curl.txt' and then press 'Enter'.")
     
-    # Opção de S/n para confirmar se o usuário colocou o comando no arquivo
+# Opção de S/n para confirmar se o usuário colocou o comando no arquivo
 user_input = input("\nDid you place the curl command in 'curl.txt'? (Y/n): ")
-    
+
+# Lê o conteúdo do arquivo curl.txt    
+with open('config/requests/curl.txt', 'r') as file:
+        validate_curl = file.read()
+
+if validate_curl == "Paste your cURL here":
+    print("\nPut a valid curl command in 'config/requests/curl.txt' and try again.")
+    exit() 
+
     # Verifica a resposta do usuário
 if user_input.strip().lower() not in ["y", ""]:
-    print("\nPlease put the curl command in 'curl.txt' and try again.")
+    print("\nPlease put the curl command in 'config/requests/curl.txt' and try again.")
     exit()
     
-    # Lê o conteúdo do arquivo curl.txt
 
 # Define o caminho completo para o arquivo "curl.txt"
 curl_file_path = os.path.join('config/requests', 'curl.txt')
@@ -44,6 +50,8 @@ try:
 except FileNotFoundError:
     print("\nThe 'curl.txt' file was not found in the 'config/requests' directory. Please create the file and place the curl command in it.")
     exit()
+
+
 
 request_method, request_url, request_body, request_headers = extract_curl_data(curl_command)
 
@@ -59,18 +67,16 @@ print(f"Request URL: {request_url}")
 print(f"Request Body: {request_body}")
 print(f"Request Headers: {request_headers}")
 
-test_script = "console.log()"
-
-print("\n('----------------------------------------------------------------------------------------------------------------------------')n")
+print('\n----------------------------------------------------------------------------------------------------------------------------\n')
 
 user_request_names = get_user_request_names()
-new_request_empty = create_test_empty(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url, test_script)
+new_request_empty = create_test_empty(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url)
 print('----------------------------------------------------------------------------------------------------------------------------')
-new_request_null = create_test_null(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url, test_script)
+new_request_null = create_test_null(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url)
 print('----------------------------------------------------------------------------------------------------------------------------')
-new_request_noneexistent = create_test_nonexistent(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url, test_script)
+new_request_noneexistent = create_test_nonexistent(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url)
 print('----------------------------------------------------------------------------------------------------------------------------')
-new_request_invalid = create_test_invalid(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url, test_script)
+new_request_invalid = create_test_invalid(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url)
 print('----------------------------------------------------------------------------------------------------------------------------')
-new_request_lenght = create_test_lenght(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url, test_script)
+new_request_lenght = create_test_lenght(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url)
 print('---------------------------------------------------End----------------------------------------------------------------------')

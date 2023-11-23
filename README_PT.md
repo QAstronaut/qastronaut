@@ -2,6 +2,8 @@
 
 Bem-vindo ao **QAstronaut, Sua Solução para Testes de API com Agilidade!**
 
+![GitHub Logo](/images/logo_qastronaut.png)
+
 O QAstronaut é um projeto em desenvolvimento que visa automatizar a execução e criação de suítes de testes. Este repositório serve como um espaço central para o desenvolvimento, documentação e colaboração.
 
 ## Tabela de Conteúdos
@@ -81,7 +83,7 @@ Certifique-se de ter os seguintes requisitos atendidos antes de começar:
 3. Em seguida, execute o comando:
 
     ```bash
-    python main.py --init
+    python qastronaut.py --init
     ```
     > **Alerta:** em alguns casos, pode ser necessário usar `python3` em vez de `python` para chamar o interpretador Python 3 no Linux.
 
@@ -93,20 +95,21 @@ Certifique-se de ter os seguintes requisitos atendidos antes de começar:
 
 ## Uso
 
-Depois da instalação você terá uma estrutura de pastas como essa:
+Depois da instalação você terá uma estrutura de pastas parecida com essa:
 
 ```bash
 qastronaut/
 │
 ├── config/
 │   ├── requests/
+│   │   └── curl.txt
 │   ├── requests_names/
 │   │   └── user_requests.txt
 │   ├── tests/
 │   │   └── body/
 │   │       ├── empty.txt
 │   │       ├── invalid.txt
-│   │       ├── noexistent.txt
+│   │       ├── nonexistent.txt
 │   │       ├── null.txt
 │   │       └── size.txt
 │   └── api_key.json
@@ -116,7 +119,15 @@ qastronaut/
 │   ├── fetch_data_postman.py
 │   └── welcome.py
 │
-├── main.py
+├── images/
+│   └── logo_qastronaut.png
+│
+├── unit_tests/
+│   ├── test_create_postman.py
+│   ├── test_fetch_data_postman.py
+│   └── test_welcome.py
+│
+├── qastronaut.py
 ├── README.md
 ├── requirements.txt
 └── LICENSE 
@@ -177,11 +188,11 @@ Esta estrutura de nomeação permite uma fácil identificação e rastreamento d
 
 Uma vez que o arquivo `curl.txt` foi criado e colocado no diretório `config/requests/`, você estará pronto para executar o QAstronaut. Siga os passos abaixo:
 
-1. Navegue até o diretório `qastronaut/`, que contém o arquivo `main.py`.
+1. Navegue até o diretório `qastronaut/`, que contém o arquivo `qastronaut.py`.
 2. Execute o seguinte comando:
 
     ```bash
-    python main.py
+    python qastronaut.py
     ```
    
    > **Nota:** Em alguns casos, especialmente no Linux, pode ser necessário usar `python3` em vez de `python` para chamar o interpretador Python 3.
@@ -199,12 +210,12 @@ Uma vez que o arquivo `curl.txt` foi criado e colocado no diretório `config/req
 5. Após esta etapa, você será solicitado a fornecer o nome da coleção que será criada para a suíte de testes e o nome da pasta:
 
     ```bash
-    Qual será o nome da coleção? Teste
-    Qual será o nome da pasta? Teste
+    What will be the name of the collection? Teste
+    What will be the name of the folder? Teste
 
-    Coleção 'Teste' criada com sucesso com o ID da coleção: 23485401-2e399297-2c19-41b1-b1ee-a3f209bfee97
+    Collection 'Teste' created successfully with the collection ID: 23485401-2e399297-2c19-41b1-b1ee-a3f209bfee97
 
-    Pasta 'Teste' criada com sucesso com o ID da pasta: 156a5f3f-a018-1943-1373-ba635b2fad44
+    Folder 'Teste' created successfully with the folder ID: 156a5f3f-a018-1943-1373-ba635b2fad44
     ```
 
 6. Após a confirmação do QAstronaut sobre a criação bem-sucedida da coleção e pasta, o próximo passo é informar o método HTTP desejado:
@@ -297,13 +308,13 @@ Agradecemos a todos os contribuidores pelo seu tempo e esforço dedicados a torn
 
 Gostaríamos de expressar nossa profunda gratidão às seguintes pessoas que desempenharam papéis fundamentais no sucesso deste projeto:
 
-- [Professor Fabio Vieira]() Queremos estender nosso agradecimento ao Professor Fabio por orientar e supervisionar nosso projeto. Sua orientação acadêmica e apoio foram essenciais para o seu sucesso.
+- Professor Dr. Fabio Vieira: Queremos estender nosso agradecimento ao Professor Dr. Fabio por orientar e supervisionar nosso projeto. Sua orientação acadêmica e apoio foram essenciais para o seu sucesso.
 
-- [Paula Santiago](): Agradecemos a Paula Santiago por compartilhar seu conhecimento prático em garantia de qualidade (QA) e sua experiência com a ferramenta Postman. Suas contribuições foram cruciais para a qualidade do nosso projeto.
+- [Paula Santiago](https://www.linkedin.com/in/paulasanty): Agradecemos a Paula Santiago por compartilhar seu conhecimento prático em garantia de qualidade (QA) e sua experiência com a ferramenta Postman. Suas contribuições foram cruciais para a qualidade do nosso projeto.
 
-- [Samara Suelen Garofalo](): Agradecemos a Samara por sua orientação valiosa e mentoria durante todo o processo de desenvolvimento. Sua experiência e insights foram inestimáveis.
+- [Samara Suelen Garofalo](https://github.com/samaragarofalo): Agradecemos a Samara por sua orientação valiosa e mentoria durante todo o processo de desenvolvimento. Sua experiência e insights foram inestimáveis.
 
-- [Enzo Marinho]() Agradecemos a Enzo por sua criatividade e por ajudar no desenvolvimento da logo do projeto. Sua contribuição adicionou um toque especial ao nosso trabalho.
+- Enzo Marinho: Agradecemos a Enzo por sua criatividade e por ajudar no desenvolvimento da logo do projeto. Sua contribuição adicionou um toque especial ao nosso trabalho.
 
 Estamos profundamente gratos a essas pessoas por suas contribuições valiosas. Seu apoio e dedicação foram essenciais para o nosso projeto. Obrigado por fazer parte desta jornada conosco.
 
