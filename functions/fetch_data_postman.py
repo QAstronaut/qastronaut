@@ -10,6 +10,10 @@ def extract_curl_data(curl_command):
     body_match = re.search(r'--data \'([^\']+)\'', curl_command)
     request_body = body_match.group(1) if body_match else ""
 
+    # Extrai o corpo da solicitação usando uma expressão regular
+    body_match = re.search(r'--data-raw \'([^\']+)\'', curl_command)
+    request_body = body_match.group(1) if body_match else ""
+
     # Verifica se há um corpo de solicitação antes de tentar analisá-lo
     if request_body:
         request_body = json.loads(request_body)
