@@ -74,30 +74,48 @@ def create_request(api_key, collection_id, folder_id, request_name, request_meth
         'Content-Type': 'application/json',
         'X-API-Key': api_key
     }
-
-    data = {
-        "name": request_name,
-        "url": request_url,
-        "method": request_method,
-        "headers": request_headers,
-        "dataMode": "raw",
-        "rawModeData": json.dumps(request_body, indent=2),
-        "dataOptions": {
-            "raw": {
-                "language": "json"
-            }
-        },
-        "events": [
-            {
-                "listen": "test",
-                "script": {
-                    "id": "a8608e1a-ce4b-4129-8c89-930d26ae0f6a",
-                    "exec": [test_script],
-                    "type": "text/javascript"
+    if request_body is None:
+                data = {
+            "name": request_name,
+            "url": request_url,
+            "method": request_method,
+            "headers": request_headers,
+            "dataMode": "none",
+            "events": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "id": "a8608e1a-ce4b-4129-8c89-930d26ae0f6a",
+                        "exec": [test_script],
+                        "type": "text/javascript"
+                    }
                 }
-            }
-        ]
-    }
+            ]
+        }
+    else:
+        data = {
+            "name": request_name,
+            "url": request_url,
+            "method": request_method,
+            "headers": request_headers,
+            "dataMode": "raw",
+            "rawModeData": json.dumps(request_body, indent=2),
+            "dataOptions": {
+                "raw": {
+                    "language": "json"
+                }
+            },
+            "events": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "id": "a8608e1a-ce4b-4129-8c89-930d26ae0f6a",
+                        "exec": [test_script],
+                        "type": "text/javascript"
+                    }
+                }
+            ]
+        }
     
     response = requests.post(url, headers=headers, json=data)
     print(response)

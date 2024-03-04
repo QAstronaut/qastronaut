@@ -70,13 +70,33 @@ print(f"Request Headers: {request_headers}")
 print('\n----------------------------------------------------------------------------------------------------------------------------\n')
 
 user_request_names = get_user_request_names()
-new_request_empty = create_test_empty(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url)
-print('----------------------------------------------------------------------------------------------------------------------------')
-new_request_null = create_test_null(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url)
-print('----------------------------------------------------------------------------------------------------------------------------')
-new_request_noneexistent = create_test_nonexistent(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url)
-print('----------------------------------------------------------------------------------------------------------------------------')
-new_request_invalid = create_test_invalid(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url)
-print('----------------------------------------------------------------------------------------------------------------------------')
-new_request_lenght = create_test_lenght(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url)
-print('---------------------------------------------------End----------------------------------------------------------------------')
+
+if request_body is None:
+
+    # teste de get
+
+    # realizei esse import por não ter um create_test_empty_get por enquanto
+    from functions.create_postman import create_request
+
+    # essa variável foi coloca dentro de cada create_test, como a função não foi criada ainda ela fica por aqui
+    with open('config/tests/params/null', 'r') as file:
+        test_script = file.read()
+
+    new_request_test = create_request(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url, test_script)
+    print("Create request GET sucess")
+
+    # fim teste de get
+
+else:
+
+    new_request_empty = create_test_empty(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url)
+    print('----------------------------------------------------------------------------------------------------------------------------')
+    new_request_null = create_test_null(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url)
+    print('----------------------------------------------------------------------------------------------------------------------------')
+    new_request_noneexistent = create_test_nonexistent(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url)
+    print('----------------------------------------------------------------------------------------------------------------------------')
+    new_request_invalid = create_test_invalid(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url)
+    print('----------------------------------------------------------------------------------------------------------------------------')
+    new_request_lenght = create_test_lenght(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url)
+    print('---------------------------------------------------End----------------------------------------------------------------------')
+
