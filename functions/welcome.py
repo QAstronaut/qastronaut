@@ -110,7 +110,7 @@ var messageError = ""
 
 pm.test("Status code is " + statusCode, function () {pm.response.to.have.status(statusCode);});
 
-pm.test("Validate error message", function () {pm.expect(messageJsonPath).to.be.contains(messageError);}); '''
+pm.test("Validate error message", function () {pm.expect(resbody.message).to.be.contains(messageError);}); '''
 
     # Cria o arquivo e escreve o conteúdo nele
     with open(file_path_nonexistent, "w") as file:
