@@ -52,7 +52,6 @@ except FileNotFoundError:
     exit()
 
 
-
 request_method, request_url, request_body, request_headers = extract_curl_data(curl_command)
 
 collection_name, folder_name = names()
