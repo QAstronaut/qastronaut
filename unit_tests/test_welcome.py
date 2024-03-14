@@ -1,6 +1,7 @@
 from functions.welcome import welcome, names, get_user_request_names
 
 
+
 def test_welcome(monkeypatch):
     # Simule a entrada do usuário
     input_values = ["YourAPIKey"]
