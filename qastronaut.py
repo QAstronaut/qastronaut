@@ -52,7 +52,6 @@ except FileNotFoundError:
     exit()
 
 
-
 request_method, request_url, request_body, request_headers = extract_curl_data(curl_command)
 
 collection_name, folder_name = names()
@@ -99,4 +98,3 @@ else:
     print('----------------------------------------------------------------------------------------------------------------------------')
     new_request_lenght = create_test_lenght(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url)
     print('---------------------------------------------------End----------------------------------------------------------------------')
-
