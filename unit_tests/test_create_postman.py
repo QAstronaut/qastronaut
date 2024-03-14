@@ -82,7 +82,7 @@ def test_create_request():
     request_body = {"key": "value"}
     request_url = "https://example.com"
     test_script = "console.log('Test script');"
-    api_key = "PMAK-6502182664892529ac886db6-cba14f4d518e37dc849306d096060cd0da"
+    api_key = "PUT_YOUR_API_KEY"
     response = create_request(api_key, collection_id, folder_id, request_name, request_method, request_headers, request_body, request_url, test_script)
     assert response.status_code == 200
 
