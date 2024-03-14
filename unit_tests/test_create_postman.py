@@ -47,7 +47,7 @@ def mock_create_request(monkeypatch):
 
     monkeypatch.setattr("create_postman.create_request", mock_request)
 
-API_KEY = "PMAK-6502182664892529ac886db6-cba14f4d518e37dc849306d096060cd0da"
+API_KEY = "PUT_YOUR_API_KEY"
 COLLECTION_NAME = "TestCollection"
 FOLDER_NAME = "TestFolder"
 REQUEST_NAMES = "TestRequest"
