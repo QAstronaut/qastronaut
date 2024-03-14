@@ -60,7 +60,6 @@ collection_id = create_collection(api_key, collection_name)
 
 folder_id = create_folder(collection_id, folder_name, api_key)
 
-
 print(f"\nRequest Method: {request_method}")
 print(f"Request URL: {request_url}")
 print(f"Request Body: {request_body}")
