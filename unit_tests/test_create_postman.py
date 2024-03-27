@@ -47,7 +47,7 @@ def mock_create_request(monkeypatch):
 
     monkeypatch.setattr("create_postman.create_request", mock_request)
 
-API_KEY = "PUT_YOUR_API_KEY"
+API_KEY = os.getenv('API_KEY')
 COLLECTION_NAME = "TestCollection"
 FOLDER_NAME = "TestFolder"
 REQUEST_NAMES = "TestRequest"
@@ -60,12 +60,12 @@ COLLECTION_ID = "your_collection_id"
 FOLDER_ID = "your_folder_id"
 
 
-@pytest.mark.scripted_test
+
 def test_create_collection():
     collection_id = create_collection(API_KEY, COLLECTION_NAME)
     assert collection_id is not None
 
-@pytest.mark.scripted_test
+
 def test_create_folder():
     collection_id = create_collection(API_KEY, COLLECTION_NAME)
     folder_id = create_folder(collection_id, FOLDER_NAME, API_KEY)
@@ -82,7 +82,7 @@ def test_create_request():
     request_body = {"key": "value"}
     request_url = "https://example.com"
     test_script = "console.log('Test script');"
-    api_key = "PUT_YOUR_API_KEY"
+    api_key = os.getenv('API_KEY')
     response = create_request(api_key, collection_id, folder_id, request_name, request_method, request_headers, request_body, request_url, test_script)
     assert response.status_code == 200
 
