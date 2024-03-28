@@ -11,8 +11,8 @@ jobs:
       - name: Using Python
         uses: actions/setup-python@v5
         with:
-          python-version: 3.
-      - name: run install and test
-        run: |
-          pip install pytest
-          pytest unit_tests/test_fetch_data_postman.py
+            python-version: '3.10'
+      - name: install and test
+      - run: 
+          pip install requests==2.31.0 simplejson==3.19.2 pytest==7.4.3 pytest-mock==3.14.0 pyfiglet==1.0.2
+          pytest
