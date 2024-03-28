@@ -3,10 +3,12 @@ from functions.fetch_data_postman import extract_curl_data
 from functions.welcome import welcome, names, get_user_request_names,lost_api_key
 import os
 import argparse
+import pyfiglet
 
+text = "QAstronaut"
+banner = pyfiglet.figlet_format(text)
+print(banner)
 
-
-print(30 * '-' + 'QAstronaut' + 30 * '-')
 
 parser = argparse.ArgumentParser(description='QAstronaut, Your Solution for Agile API Testing!')
 parser.add_argument('--init', action='store_true', help='Perform initial setup')
@@ -14,13 +16,13 @@ args = parser.parse_args()
 
 if args.init:
     api_key = welcome()
-    print("\n\nPlease put the curl command in a text file named 'config/requests/curl.txt'.")
+    print("\nPlease put the curl command in a text file named 'config/requests/curl.txt'.")
     exit()
 else:
     api_key = lost_api_key()
 
 # Aviso para colocar o comando curl em um arquivo txt
-print("\n\nPlease put the curl command in a text file named 'config/requests/curl.txt' and then press 'Enter'.")
+print("\nPlease put the curl command in a text file named 'config/requests/curl.txt' and then press 'Enter'.")
     
 # Opção de S/n para confirmar se o usuário colocou o comando no arquivo
 user_input = input("\nDid you place the curl command in 'curl.txt'? (Y/n): ")
