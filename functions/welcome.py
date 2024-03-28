@@ -164,7 +164,7 @@ pm.test("Validate error message", function () {pm.expect(resbody.message).to.be.
     with open(file_path_size, "w") as file:
         file.write(test_generic)
 
-
+name_file_path = "caminho/do/arquivo.txt"
 def get_user_request_names():
     user_request_names = []
 
