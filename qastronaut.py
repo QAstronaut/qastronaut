@@ -20,13 +20,10 @@ if args.init:
 else:
     api_key = lost_api_key()
 
-# Aviso para colocar o comando curl em um arquivo txt
 print("\nPlease put the curl command in a text file named 'config/requests/curl.txt' and then press 'Enter'.")
     
-# Opção de S/n para confirmar se o usuário colocou o comando no arquivo
 user_input = input("\nDid you place the curl command in 'curl.txt'? (Y/n): ")
-
-# Lê o conteúdo do arquivo curl.txt    
+   
 with open('config/requests/curl.txt', 'r') as file:
         validate_curl = file.read()
 
@@ -34,13 +31,10 @@ if validate_curl == "Paste your cURL here":
     print("\nPut a valid curl command in 'config/requests/curl.txt' and try again.")
     exit() 
 
-    # Verifica a resposta do usuário
 if user_input.strip().lower() not in ["y", ""]:
     print("\nPlease put the curl command in 'config/requests/curl.txt' and try again.")
     exit()
     
-
-# Define o caminho completo para o arquivo "curl.txt"
 curl_file_path = os.path.join('config/requests', 'curl.txt')
 requests_name_arch = 'config/requests'
 name_file_path = os.path.join(requests_name_arch, 'user_requests')
@@ -51,7 +45,6 @@ try:
 except FileNotFoundError:
     print("\nThe 'curl.txt' file was not found in the 'config/requests' directory. Please create the file and place the curl command in it.")
     exit()
-
 
 request_method, request_url, request_body, request_headers = extract_curl_data(curl_command)
 
