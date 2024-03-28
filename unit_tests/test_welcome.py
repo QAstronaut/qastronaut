@@ -1,5 +1,5 @@
 from unittest.mock import patch
-from functions.welcome import lost_api_key, welcome, names, get_user_request_names, default_test
+from functions.welcome import lost_api_key, welcome, names, get_user_request_names, default_test_body, default_test_get
 
 
 import os
@@ -55,9 +55,9 @@ def test_names():
     assert collection_name == "Test Collection"
     assert folder_name == "Test Folder"
 
-def test_default_test():
+def test_default_test_body():
     # Execute a função default_test()
-    default_test()
+    default_test_body()
 
     # Verifique se os arquivos foram criados corretamente
     assert os.path.exists("config/tests/body/nonexistent")
@@ -65,6 +65,17 @@ def test_default_test():
     assert os.path.exists("config/tests/body/null")
     assert os.path.exists("config/tests/body/size")
     assert os.path.exists("config/tests/body/invalid")
+
+def test_default_test_get():
+    # Execute a função default_test()
+    default_test_get()
+
+    # Verifique se os arquivos foram criados corretamente
+    assert os.path.exists("config/tests/params/nonexistent")
+    assert os.path.exists("config/tests/params/empty")
+    assert os.path.exists("config/tests/params/null")
+    assert os.path.exists("config/tests/params/size")
+    assert os.path.exists("config/tests/params/invalid")
 
 
 def test_get_user_request_names(mocker):
