@@ -91,7 +91,10 @@ def welcome():
 
     return api_key
 
-def names(collection_name, folder_name):
+def names():
+
+    collection_name = input("What will the name of the collection be? ")
+    folder_name = input("What will the folder name be? ")
 
     return collection_name, folder_name
 
@@ -164,8 +167,10 @@ pm.test("Validate error message", function () {pm.expect(resbody.message).to.be.
     with open(file_path_size, "w") as file:
         file.write(test_generic)
 
-name_file_path = "caminho/do/arquivo.txt"
 def get_user_request_names():
+
+    requests_name_arch = 'config/requests_names'
+    name_file_path = os.path.join(requests_name_arch, 'user_requests.txt')
     user_request_names = []
 
     try:
@@ -173,9 +178,9 @@ def get_user_request_names():
             lines = file.readlines()
             for line in lines:
                 parts = line.strip().split(',')
-                for part in parts:
-                    if part:
-                        user_request_names.append(part)
+                if len(parts) >= 1:
+                    user_request_name = ','.join(parts)
+                    user_request_names.append(user_request_name)
     except FileNotFoundError:
         print("\nThe 'user_requests' file was not found. Please create the file and add request names.")
         exit()
