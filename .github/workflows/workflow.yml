@@ -1,9 +1,10 @@
-name: Continuos Integration
+name: Unit Tests
 
-on: pull_request
+on: 
+    pull_request
 
-jobs:
-  continuos-integration:
+jobs: 
+  unit-tests:
     runs-on: ubuntu-latest
 
     steps:
@@ -13,6 +14,6 @@ jobs:
         with:
             python-version: '3.10'
       - name: install and test
-      - run: 
+       run: 
           pip install requests==2.31.0 simplejson==3.19.2 pytest==7.4.3 pytest-mock==3.14.0 pyfiglet==1.0.2
           pytest
