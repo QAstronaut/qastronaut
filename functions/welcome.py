@@ -24,6 +24,7 @@ def welcome():
     test_dir = os.path.join(config_dir, 'tests')
     request_name_dir = os.path.join(config_dir, 'requests_names')
     test_body_dir = os.path.join(test_dir, 'body')
+    test_body_dir = os.path.join(test_dir, 'params')
     
     user_request_path = os.path.join(request_name_dir, 'user_requests.txt')
     user_curl_path = os.path.join(requests_dir, 'curl.txt')
@@ -53,7 +54,8 @@ def welcome():
 
 
 
-    default_test()
+    default_test_body()
+    default_test_get()
 
     # Define o caminho completo para o arquivo api_key.json
     api_key_file = os.path.join(config_dir, 'api_key.json')
@@ -85,15 +87,12 @@ def welcome():
 
     return api_key
 
-def names():
-
-    collection_name = input("What will the name of the collection be? ")
-    folder_name = input("What will the folder name be? ")
+def names(collection_name, folder_name):
 
     return collection_name, folder_name
 
 
-def default_test():
+def default_test_body():
     # Define o caminho completo do arquivo
     file_path_nonexistent = os.path.join("config", "tests", "body", "nonexistent")
     file_path_empty = os.path.join("config", "tests", "body", "empty")
@@ -105,11 +104,10 @@ def default_test():
 
 var statusCode = 400
 var messageError = ""
-var messageJsonPath = "resbody.message"
 
 pm.test("Status code is " + statusCode, function () {pm.response.to.have.status(statusCode);});
 
-pm.test("Validate error message", function () {pm.expect(messageJsonPath).to.be.contains(messageError);}); '''
+pm.test("Validate error message", function () {pm.expect(resbody.message).to.be.contains(messageError);}); '''
 
     # Cria o arquivo e escreve o conteúdo nele
     with open(file_path_nonexistent, "w") as file:
@@ -127,12 +125,45 @@ pm.test("Validate error message", function () {pm.expect(messageJsonPath).to.be.
     with open(file_path_size, "w") as file:
         file.write(test_generic)
 
-# Adicione a função get_user_request_names() 
+def default_test_get():
+    # Define o caminho completo do arquivo
+    file_path_nonexistent = os.path.join("config", "tests", "params", "nonexistent")
+    file_path_empty = os.path.join("config", "tests", "params", "empty")
+    file_path_null = os.path.join("config", "tests", "params", "null")
+    file_path_size = os.path.join("config", "tests", "params", "size")
+    file_path_invalid = os.path.join("config", "tests", "params", "invalid")
+    
+    test_generic = '''var resbody = JSON.parse(responseBody)
 
+var statusCode = 400
+var messageError = ""
+
+pm.test("Status code is " + statusCode, function () {pm.response.to.have.status(statusCode);});
+
+pm.test("Response Body is not empty", function () {pm.expect(resbody).to.be.not.empty;});
+
+pm.test("Validate error message", function () {pm.expect(resbody.message).to.be.contains(messageError);}); '''
+
+    # Cria o arquivo e escreve o conteúdo nele
+    with open(file_path_nonexistent, "w") as file:
+        file.write(test_generic)
+    
+    with open(file_path_empty, "w") as file:
+        file.write(test_generic)
+
+    with open(file_path_null, "w") as file:
+        file.write(test_generic)
+
+    with open(file_path_invalid, "w") as file:
+        file.write(test_generic)
+    
+    with open(file_path_size, "w") as file:
+        file.write(test_generic)
+
+
+
+name_file_path = "caminho/do/arquivo.txt"
 def get_user_request_names():
-
-    requests_name_arch = 'config/requests_names'
-    name_file_path = os.path.join(requests_name_arch, 'user_requests.txt')
     user_request_names = []
 
     try:
@@ -140,9 +171,9 @@ def get_user_request_names():
             lines = file.readlines()
             for line in lines:
                 parts = line.strip().split(',')
-                if len(parts) >= 1:
-                    user_request_name = ','.join(parts)
-                    user_request_names.append(user_request_name)
+                for part in parts:
+                    if part:
+                        user_request_names.append(part)
     except FileNotFoundError:
         print("\nThe 'user_requests' file was not found. Please create the file and add request names.")
         exit()

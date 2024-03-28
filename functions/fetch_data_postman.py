@@ -3,11 +3,11 @@ import json
 
 def extract_curl_data(curl_command):
     # Extrai a URL usando uma expressão regular
-    url_match = re.search(r'\'(https?://[^\']+)', curl_command)
+    url_match = re.search(r'--location \'([^\']+)\'', curl_command)
     request_url = url_match.group(1) if url_match else None
 
-    # Extrai o corpo da solicitação usando uma expressão regular
-    body_match = re.search(r'--data \'([^\']+)\'', curl_command)
+    # Extrai o corpo da solicitação usando uma expressão regular combinada
+    body_match = re.search(r'--data(?:-raw)? \'([^\']+)\'', curl_command)
     request_body = body_match.group(1) if body_match else ""
 
     # Extrai o corpo da solicitação usando uma expressão regular
