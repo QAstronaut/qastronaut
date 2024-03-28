@@ -1,7 +1,5 @@
-from unittest.mock import patch
+from unittest.mock import patch, mock_open
 from functions.welcome import lost_api_key, welcome, names, get_user_request_names, default_test_body, default_test_get
-
-
 import os
 import json
 import pytest
@@ -49,11 +47,15 @@ def test_welcome_no_api_key(setup, monkeypatch):
         data = json.load(f)
         assert data['api_key'] == 'new_api_key'
 
-def test_names():
-    collection_name, folder_name = names("Test Collection", "Test Folder")
 
-    assert collection_name == "Test Collection"
-    assert folder_name == "Test Folder"
+def test_names(mocker):
+    # Simule a entrada do usuário com valores de teste
+    mocker.patch('builtins.input', side_effect=['Test Collection', 'Test Folder'])
+    
+    collection_name, folder_name = names()
+    
+    assert collection_name == 'Test Collection'
+    assert folder_name == 'Test Folder'
 
 def test_default_test_body():
     # Execute a função default_test()
@@ -78,17 +80,10 @@ def test_default_test_get():
     assert os.path.exists("config/tests/params/invalid")
 
 
-def test_get_user_request_names(mocker):
+def test_get_user_request_names():
     # Simule a abertura do arquivo com conteúdo simulado
-    mocker.patch("builtins.open", mocker.mock_open(read_data="Request1,Request2,Request3"))
-
-    expected_names = ["Request1", "Request2", "Request3"]
-    result = get_user_request_names()
-    
-    assert result == expected_names  # Verifique a lista inteira
-    assert result[0] == expected_names[0]  # Verifique o primeiro elemento
-    assert result[1] == expected_names[1]  # Verifique o segundo elemento
-    assert result[2] == expected_names[2]  # Verifique o terceiro elemento
+    with patch("builtins.open", mock_open(read_data="Request1\nRequest2\nRequest3\n")) as mock_file:
+        assert get_user_request_names() == ['Request1', 'Request2', 'Request3']
 
 @patch('builtins.open', create=True)
 
