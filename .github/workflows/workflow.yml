@@ -21,4 +21,5 @@ jobs:
 
       - name: Run tests
         run: |
+          echo "$API_KEY" | python3 qastronaut.py --init
           pytest
