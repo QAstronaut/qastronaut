@@ -9,7 +9,6 @@ text = "QAstronaut"
 banner = pyfiglet.figlet_format(text)
 print(banner)
 
-
 parser = argparse.ArgumentParser(description='QAstronaut, Your Solution for Agile API Testing!')
 parser.add_argument('--init', action='store_true', help='Perform initial setup')
 args = parser.parse_args()
