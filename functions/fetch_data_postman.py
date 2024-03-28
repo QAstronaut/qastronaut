@@ -2,21 +2,24 @@ import re
 import json
 
 def extract_curl_data(curl_command):
+
     # Extrai a URL usando uma expressão regular
-    url_match = re.search(r'--location \'([^\']+)\'', curl_command)
+    url_match = re.search(r"curl\s+(?:--location\s+)?['\"]?([^'\"]+)['\"]?", curl_command)
     request_url = url_match.group(1) if url_match else None
 
-    # Extrai o corpo da solicitação usando uma expressão regular combinada
+    # Combinação de padrões para '--data' ou '--data-raw'
     body_match = re.search(r'--data(?:-raw)? \'([^\']+)\'', curl_command)
-    request_body = body_match.group(1) if body_match else ""
-
-    # Extrai o corpo da solicitação usando uma expressão regular
-    body_match = re.search(r'--data-raw \'([^\']+)\'', curl_command)
-    request_body = body_match.group(1) if body_match else ""
+    request_body_raw = body_match.group(1) if body_match else ""
 
     # Verifica se há um corpo de solicitação antes de tentar analisá-lo
-    if request_body:
-        request_body = json.loads(request_body)
+    if request_body_raw:
+        # Substitua as aspas simples por aspas duplas para tornar o JSON válido
+        request_body_json = request_body_raw.replace("'", '"')
+        try:
+            request_body = json.loads(request_body_json)
+        except json.JSONDecodeError as e:
+            print("\nErro ao analisar o JSON do corpo da solicitação:", e)
+            request_body = None
     else:
         request_body = None
 

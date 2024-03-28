@@ -1,7 +1,5 @@
-from unittest.mock import patch
+from unittest.mock import patch, mock_open
 from functions.welcome import lost_api_key, welcome, names, get_user_request_names, default_test_body, default_test_get
-
-
 import os
 import json
 import pytest
