@@ -46,6 +46,9 @@ def welcome():
 
     if not os.path.exists(test_body_dir):
         os.makedirs(test_body_dir)
+    
+    if not os.path.exists(test_params_dir):
+        os.makedirs(test_params_dir)
         
     with open(user_request_path, 'w') as file:
         file.write("QAstronaut")
@@ -162,8 +165,6 @@ pm.test("Validate error message", function () {pm.expect(resbody.message).to.be.
         file.write(test_generic)
 
 
-
-name_file_path = "caminho/do/arquivo.txt"
 def get_user_request_names():
     user_request_names = []
 
