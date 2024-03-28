@@ -33,7 +33,7 @@ requests.post = mock_post
 
 @pytest.fixture
 def mock_create_request(monkeypatch):
-    def mock_request(*args, **kwargs):
+    def mock_request():
         class MockResponse:
             def __init__(self, status_code, json_data):
                 self.status_code = status_code
@@ -86,23 +86,23 @@ def test_create_request():
     response = create_request(api_key, collection_id, folder_id, request_name, request_method, request_headers, request_body, request_url, test_script)
     assert response.status_code == 200
 
-def test_create_test_empty(mock_create_request):
+def test_create_test_empty():
     request_id = create_test_empty(API_KEY, COLLECTION_ID, FOLDER_ID, REQUEST_NAMES, REQUEST_METHOD, REQUEST_HEADERS, REQUEST_BODY, REQUEST_URL)
     assert request_id is not None
 
-def test_create_test_null(mock_create_request):
+def test_create_test_null():
     request_id = create_test_null(API_KEY, COLLECTION_ID, FOLDER_ID, REQUEST_NAMES, REQUEST_METHOD, REQUEST_HEADERS, REQUEST_BODY, REQUEST_URL)
     assert request_id is not None
 
-def test_create_test_nonexistent(mock_create_request):
+def test_create_test_nonexistent():
     request_id = create_test_nonexistent(API_KEY, COLLECTION_ID, FOLDER_ID, REQUEST_NAMES, REQUEST_METHOD, REQUEST_HEADERS, REQUEST_BODY, REQUEST_URL)
     assert request_id is not None
 
-def test_create_test_invalid(mock_create_request):
+def test_create_test_invalid():
     request_id = create_test_invalid(API_KEY, COLLECTION_ID, FOLDER_ID, REQUEST_NAMES, REQUEST_METHOD, REQUEST_HEADERS, REQUEST_BODY, REQUEST_URL)
     assert request_id is not None
 
-def test_create_test_length(mock_create_request):
+def test_create_test_length():
     request_id = create_test_lenght(API_KEY, COLLECTION_ID, FOLDER_ID, REQUEST_NAMES, REQUEST_METHOD, REQUEST_HEADERS, REQUEST_BODY, REQUEST_URL)
     assert request_id is not None
 
