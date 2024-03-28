@@ -1,32 +1,72 @@
-from functions.welcome import welcome, names, get_user_request_names
+from unittest.mock import patch
+from functions.welcome import lost_api_key, welcome, names, get_user_request_names, default_test
 
 
-def test_welcome(monkeypatch):
-    # Simule a entrada do usuário
-    input_values = ["YourAPIKey"]
-    input_mock = lambda _: input_values.pop(0)
-    
-    # Simule o KeyboardInterrupt para evitar a execução infinita do teste
-    monkeypatch.setattr('builtins.input', input_mock)
-    monkeypatch.setattr('sys.exit', lambda x: None)  # Simule o sys.exit
-    
+import os
+import json
+import pytest
+
+# Fixture para configurar o ambiente antes dos testes
+@pytest.fixture
+def setup():
+    # Criação do arquivo api_key.json para os testes
+    config_dir = 'config'
+    api_key_file = os.path.join(config_dir, 'api_key.json')
+    api_key_data = {'api_key': 'test_api_key'}
+
+    os.makedirs(config_dir, exist_ok=True)
+    with open(api_key_file, 'w') as f:
+        json.dump(api_key_data, f)
+
+    yield
+
+    # Limpeza após os testes
+    os.remove(api_key_file)
+
+def test_welcome_existing_api_key(setup, monkeypatch):
+    # Simula a entrada do usuário
+    monkeypatch.setattr('builtins.input', lambda _: None)
+
+    # Executa a função welcome()
     api_key = welcome()
 
-    # Verifique se a função retorna a chave API corretamente
-    assert api_key == "PMAK-6502182664892529ac886db6-cba14f4d518e37dc849306d096060cd0da"
+    # Verifica se a função retorna a chave API correta
+    assert api_key == 'test_api_key'
 
-# Teste para a função names
-def test_names(capsys):
-    collection_name, folder_name = names("TestCollection", "TestFolder")
-    assert collection_name == "TestCollection"
-    assert folder_name == "TestFolder"
+def test_welcome_no_api_key(setup, monkeypatch):
+    # Remove o arquivo api_key.json para simular a ausência da chave API
+    os.remove('config/api_key.json')
 
-#OBS.: Por se tratar de um input, o teste da func test_names dará um erro, a menos que alteremos o input por um valor fixo. Parte do código alterada:
-'''def names(collection_name, folder_name):
-    return collection_name, folder_name'''
+    # Simula a entrada do usuário
+    monkeypatch.setattr('builtins.input', lambda _: 'new_api_key')
+
+    # Executa a função welcome()
+    api_key = welcome()
+
+    # Verifica se a função solicita corretamente a entrada da chave API e a salva no arquivo
+    assert api_key == 'new_api_key'
+    with open('config/api_key.json') as f:
+        data = json.load(f)
+        assert data['api_key'] == 'new_api_key'
+
+def test_names():
+    collection_name, folder_name = names("Test Collection", "Test Folder")
+
+    assert collection_name == "Test Collection"
+    assert folder_name == "Test Folder"
+
+def test_default_test():
+    # Execute a função default_test()
+    default_test()
+
+    # Verifique se os arquivos foram criados corretamente
+    assert os.path.exists("config/tests/body/nonexistent")
+    assert os.path.exists("config/tests/body/empty")
+    assert os.path.exists("config/tests/body/null")
+    assert os.path.exists("config/tests/body/size")
+    assert os.path.exists("config/tests/body/invalid")
 
 
-# Teste para a função get_user_request_names
 def test_get_user_request_names(mocker):
     # Simule a abertura do arquivo com conteúdo simulado
     mocker.patch("builtins.open", mocker.mock_open(read_data="Request1,Request2,Request3"))
@@ -39,21 +79,8 @@ def test_get_user_request_names(mocker):
     assert result[1] == expected_names[1]  # Verifique o segundo elemento
     assert result[2] == expected_names[2]  # Verifique o terceiro elemento
 
-#OBS.: Por se tratar de uma leitura de arquivo com uma lista, o teste da func test_get_user_requests_names dará um erro, a menos que alteremos o módulo pelo seguinte código:
-'''def get_user_request_names():
-    user_request_names = []
+@patch('builtins.open', create=True)
 
-    try:
-        with open(name_file_path, "r") as file:
-            lines = file.readlines()
-            for line in lines:
-                parts = line.strip().split(',')
-                for part in parts:
-                    if part:
-                        user_request_names.append(part)
-    except FileNotFoundError:
-        print("\nThe 'user_requests' file was not found. Please create the file and add request names.")
-        exit()
-
-    return user_request_names'''
-
+def test_api_key_exists(mock_open):
+    mock_open.return_value.__enter__.return_value.read.return_value = '{"api_key": "test_api_key"}'
+    assert lost_api_key() == 'test_api_key'
