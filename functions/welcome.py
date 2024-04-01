@@ -17,6 +17,7 @@ def welcome():
     request_name_dir ='config/request_names'
     user_request_path = 'config/request_name/user_requests.txt'
     test_body_dir = 'config/tests/body'
+    test_params_dir = 'config/tests/params'
     
 
     # Define o diretório de solicitações dentro do diretório de configuração
@@ -24,7 +25,7 @@ def welcome():
     test_dir = os.path.join(config_dir, 'tests')
     request_name_dir = os.path.join(config_dir, 'requests_names')
     test_body_dir = os.path.join(test_dir, 'body')
-    test_body_dir = os.path.join(test_dir, 'params')
+    test_params_dir = os.path.join(test_dir, 'params')
     
     user_request_path = os.path.join(request_name_dir, 'user_requests.txt')
     user_curl_path = os.path.join(requests_dir, 'curl.txt')
@@ -45,6 +46,9 @@ def welcome():
 
     if not os.path.exists(test_body_dir):
         os.makedirs(test_body_dir)
+    
+    if not os.path.exists(test_params_dir):
+        os.makedirs(test_params_dir)
         
     with open(user_request_path, 'w') as file:
         file.write("QAstronaut")
@@ -162,7 +166,6 @@ pm.test("Validate error message", function () {pm.expect(resbody.message).to.be.
     
     with open(file_path_size, "w") as file:
         file.write(test_generic)
-
 
 def get_user_request_names():
 

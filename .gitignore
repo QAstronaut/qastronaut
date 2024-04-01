@@ -1,2 +1,6 @@
 /config/
 functions/__pycache__/
+unit_tests/.pytest_cache
+unit_tests/__pycache__/
+unit_tests/config/
+.pytest_cache
