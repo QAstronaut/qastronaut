@@ -4,10 +4,6 @@ import copy
 import simplejson as json
 from decimal import Decimal
 
-blue_color = "\033[1;34m"
-red_color = "\033[1;31m"
-reset_color = "\033[0m" 
-
 ct_counter = 1
 
 def create_collection(api_key, collection_name):
@@ -34,12 +30,12 @@ def create_collection(api_key, collection_name):
         collection_data = response.json()
         collection_id = collection_data.get('collection', {}).get('uid')
         if collection_id:
-            print(f"\nCollection '{blue_color}{collection_name}{reset_color}' created successfully with collection_id: {collection_id}")
+            print(f"\nCollection '{collection_name}' created successfully with collection_id: {collection_id}")
             return collection_id
         else:
-            print(f"\nCollection '{blue_color}{collection_name}{reset_color}' created, but collection_id not found in the response.")
+            print(f"\nCollection '{collection_name}' created, but collection_id not found in the response.")
     else:
-        print(f"\nFailed to create collection '{red_color}{collection_name}{reset_color}'. Status code: {response.status_code}")
+        print(f"\nFailed to create collection '{collection_name}'. Status code: {response.status_code}")
 
     return None
 
@@ -63,12 +59,12 @@ def create_folder(collection_id, folder_name, api_key):
         folder_data = response.json()
         folder_id = folder_data.get('data', {}).get('id')
         if folder_id:
-            print(f"\nFolder '{blue_color}{folder_name}{reset_color}' created successfully with folder_id: {folder_id}")
+            print(f"\nFolder '{folder_name}' created successfully with folder_id: {folder_id}")
             return folder_id
         else:
-            print(f"\nFolder '{blue_color}{folder_name}{reset_color}' created, but folder_id not found in the response.")
+            print(f"\nFolder '{folder_name}' created, but folder_id not found in the response.")
     else:
-        print(f"\nFailed to create collection '{red_color}{folder_name}{reset_color}'. Status code: {response.status_code}")
+        print(f"\nFailed to create collection '{folder_name}'. Status code: {response.status_code}")
     return None
 
 def create_request(api_key, collection_id, folder_id, request_name, request_method, request_headers, request_body, request_url, test_script):
