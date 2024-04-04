@@ -1,5 +1,5 @@
-from functions.create_postman import create_collection, create_folder, create_test_empty, create_test_null, create_test_nonexistent, create_test_invalid
-from functions.create_postman_GET import edit_and_create_get_requests  # Assegure-se de que o caminho está correto
+from functions.create_postman import create_collection, create_folder, create_test_empty, create_test_null, create_test_nonexistent, create_test_invalid, create_test_lenght
+from functions.create_postman_GET import edit_and_send_requests
 from functions.fetch_data_postman import extract_curl_data
 from functions.welcome import welcome, names, get_user_request_names, lost_api_key
 import os
@@ -63,11 +63,10 @@ if runner.strip().lower() not in ["y", ""]:
     exit()
 
 print('\n----------------------------------------------------------------------------------------------------------------------------\n')
-
 user_request_names = get_user_request_names()
 
 if request_method == "GET":
-    edit_and_create_get_requests(api_key, collection_id, folder_id, curl_file_path, request_method, request_headers, "console.log('Test passed')")  # Exemplo de script de teste
+    edit_and_send_requests(api_key, collection_id, folder_id, curl_file_path, request_method, request_headers, "console.log('Test passed')")
     print("Create request GET success")
 else:
     new_request_empty = create_test_empty(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url)
@@ -78,6 +77,5 @@ else:
     print('----------------------------------------------------------------------------------------------------------------------------')
     new_request_invalid = create_test_invalid(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url)
     print('----------------------------------------------------------------------------------------------------------------------------')
-
-    # new_request_length = create_test_length(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request)
+    new_request_length = create_test_lenght(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url)
 
