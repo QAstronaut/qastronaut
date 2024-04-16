@@ -10,7 +10,6 @@ O QAstronaut é um projeto em desenvolvimento que visa automatizar a execução 
 
 - [Visão Geral](#visão-geral)
 - [Instalação](#instalação)
-- [Uso](#uso)
 - [Contribuindo](#contribuindo)
 - [Agradecimentos](#agradecimentos)
 - [Licença](#licença)
@@ -56,7 +55,7 @@ Em resumo, o **QAstronaut** é a solução perfeita para quem busca simplificar 
 
 ## Instalação
 
-Siga estas instruções para baixar, configurar e executar o QAstronaut em seu ambiente.
+Siga estas instruções para baixar e configurar o QAstronaut em seu ambiente.
 
 ### Pré-requisitos
 
@@ -85,162 +84,13 @@ Certifique-se de ter os seguintes requisitos atendidos antes de começar:
     ```bash
     python qastronaut.py --init
     ```
-    > **Alerta:** em alguns casos, pode ser necessário usar `python3` em vez de `python` para chamar o interpretador Python 3 no Linux.
+    > **Alerta:** em alguns casos, pode ser necessário usar `python3` ou `py` em vez de `python` para chamar o interpretador Python 3.
 
     Este comando irá solicitar a sua [API Key](https://learning.postman.com/docs/developer/postman-api/authentication/) e criará as pastas de configuração do QAstronaut.
 
     Após esse processo, o QAstronaut está pronto para uso.
 
-
-
-## Uso
-
-Depois da instalação você terá uma estrutura de pastas parecida com essa:
-
-```bash
-qastronaut/
-│
-├── config/
-│   ├── requests/
-│   │   └── curl.txt
-│   ├── requests_names/
-│   │   └── user_requests.txt
-│   ├── tests/
-│   │   └── body/
-│   │       ├── empty.txt
-│   │       ├── invalid.txt
-│   │       ├── nonexistent.txt
-│   │       ├── null.txt
-│   │       └── size.txt
-│   └── api_key.json
-│
-├── functions/
-│   ├── create_postman.py
-│   ├── fetch_data_postman.py
-│   └── welcome.py
-│
-├── images/
-│   └── logo_qastronaut.png
-│
-├── unit_tests/
-│   ├── test_create_postman.py
-│   ├── test_fetch_data_postman.py
-│   └── test_welcome.py
-│
-├── qastronaut.py
-├── README.md
-├── requirements.txt
-└── LICENSE 
-```
-
-**Lembre-se**: A API Key é um componente essencial para o pleno funcionamento do QAstronaut. Se você a alterou ou não a forneceu durante a instalação, é importante que atualize o arquivo `api_key.json` incluindo uma chave válida.
-
-## Configuração de Testes e Cenários
-
-Toda a interação com o QAstronaut será realizada via linha de comando para execução. No ponto de configuração, focaremos no diretório `config/`.
-
-### Adicionando uma Solicitação HTTP
-
-Para incluir uma solicitação HTTP, siga o procedimento abaixo:
-
-1. Salve o cURL da solicitação desejada e cole o mesmo no arquivo com o nome `curl.txt`.
-2. `curl.txt` está no diretório `config/requests/`.
-
-Dessa forma, garantimos uma configuração adequada para as solicitações HTTP em seu ambiente de testes.
-
-
-> Atualmente, o QAstronaut é capaz de testar somente um endpoint por vez. Se você precisar testar múltiplos endpoints, será necessário substituir o arquivo curl.txt a cada vez.
-
-#### Configuração dos testes
-
- No diretório `config/tests/`, você encontrará todos os scripts JavaScript de teste disponíveis para o QAstronaut, referente a cada cenário de teste que o QAstronaut é capaz de criar. É essencial observar que esta lista de testes está em constante evolução e requer alterações para se adequar aos requisitos do endpoint planejado. Certifique-se de manter esses scripts atualizados para garantir uma cobertura adequada de testes.
-
-Caso prefira, você tem a opção de criar seu próprio script de teste para os cenários listados na pasta de testes, sobrescrevendo os existentes. Essa abordagem possibilita uma personalização completa de acordo com as suas necessidades específicas.
-
-> A configuração de testes do QAstronaut se refere ao elemento [Tests](https://learning.postman.com/docs/getting-started/first-steps/write-your-first-test/) do postman
-
-> **Obs:** No que diz respeito à quantidade de cenários de teste disponíveis, o QAstronaut está comprometido com a melhoria contínua, expandindo seu repertório de heurísticas de teste e ampliando o escopo dos testes de API. Estamos sempre trabalhando para oferecer uma variedade maior de cenários de teste e aprimorar a cobertura geral de testes, garantindo que o QAstronaut continue sendo uma ferramenta valiosa para testes abrangentes de API.
-
-> **Lembre-se**: Os demais diretórios do projeto como o `functions/` são pastas que estão ligadas com o funcionamento do QAstronaut, qualquer alteração ou exclusão irá afetar diretamente o funcionamento do mesmo. 
-
-#### Personalização dos Títulos dos Cenários de Teste
-
-No QAstronaut, os nomes das [Requisições (Requests)](https://learning.postman.com/docs/sending-requests/requests/) são definidos da seguinte forma:
-
-```text
-CT000 - user_requests - Campo JSON - Cenário
-```
-1. "CT000" representa um contador exclusivo para cada cenário de teste.
-2. "user_requests" é o nome do arquivo que deve ser personalizado para identificar a suíte de teste. 
-> **Atenção**: Certifique-se de preencher o arquivo `user_requests` pois o QAstronaut depende dele para funcionar corretamente, ele está localizado no diretório `config/requests_names/`
-3. O "Campo JSON" refere-se ao campo que está sendo testado no cenário de teste.
-4. O "Cenário" descreve o cenário de teste em si, como "Inexistente," "Vazio," "Nulo," e assim por diante.
-
-Para um exemplo prático, um nome de pedido real pode ser definido da seguinte forma:
-
-```text
-CT023 - CadastrarUsuário - Nome - Vazio
-```
-
-Esta estrutura de nomeação permite uma fácil identificação e rastreamento dos cenários de teste, ajudando a manter seu projeto de testes organizado e eficiente.
-
-## Criação de suítes de teste
-
-Uma vez que o arquivo `curl.txt` foi criado e colocado no diretório `config/requests/`, você estará pronto para executar o QAstronaut. Siga os passos abaixo:
-
-1. Navegue até o diretório `qastronaut/`, que contém o arquivo `qastronaut.py`.
-2. Execute o seguinte comando:
-
-    ```bash
-    python qastronaut.py
-    ```
-   
-   > **Nota:** Em alguns casos, especialmente no Linux, pode ser necessário usar `python3` em vez de `python` para chamar o interpretador Python 3.
-
-3. Você receberá as seguintes orientações:
-
-    ```bash
-    Por favor, coloque o comando cURL em um arquivo de texto chamado 'curl.txt' e pressione 'Enter'.
-
-    Você colocou o comando cURL em 'curl.txt'? (S/n): 
-    ```
-
-4. Se você já adicionou o arquivo `curl.txt`, pressione Enter para prosseguir. Caso contrário, adicione o arquivo `curl.txt` e continue.
-
-5. Após esta etapa, você será solicitado a fornecer o nome da coleção que será criada para a suíte de testes e o nome da pasta:
-
-    ```bash
-    What will be the name of the collection? Teste
-    What will be the name of the folder? Teste
-
-    Collection 'Teste' created successfully with the collection ID: 23485401-2e399297-2c19-41b1-b1ee-a3f209bfee97
-
-    Folder 'Teste' created successfully with the folder ID: 156a5f3f-a018-1943-1373-ba635b2fad44
-    ```
-
-6. Após a confirmação do QAstronaut sobre a criação bem-sucedida da coleção e pasta, o próximo passo é informar o método HTTP desejado:
-
-```bash
-Which HTTP method do you want to use (GET/POST/PUT/DELETE, etc.)? post
-```
-7. Feito isso, o QAstronaut irá mostrar a solicitação HTTP correspondente e começará a criar os testes no workspace do Postman, fornecendo um retorno a cada solicitação HTTP criada
-
-```bash
-Request Method: POST
-Request URL: https://serverest.dev/produtos
-Request Body: {'nome': 'Cheese IV', 'preco': 524, 'descricao': 'Produto', 'detalhes': {'peso': '100g', 'fabricante': 'Empresa XYZ'}, 'imagens': ['imagem1.jpg', 'imagem2.jpg']}
-Request Headers: Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkFteTg0QGhvdG1haWwuY29tIiwicGFzc3dvcmQiOiJJTUlVQmpOU1hKSnN2RXMiLCJpYXQiOjE2OTMzNDkwNjcsImV4cCI6MTY5MzM0OTY2N30.B2Rc1H8iR0saTeY9FsX7bo2lDHla_frX0FR6Uz8AjLY
-Content-Type: application/json
-
-----------------------------------------------------------------------
-
-<Response [200]>
-name has been tested empty
-<Response [200]>
-price has been tested empty
-...
-```
-
+    Para mais informações sobre o QAstronaut, incluindo suas funcionalidades, configurações e `primeiros passos`, recomendamos consultar nossa [Wiki](https://github.com/QAstronaut/qastronaut/wiki).
 
 ## Contribuindo
 
