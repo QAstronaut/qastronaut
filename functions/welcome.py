@@ -127,7 +127,6 @@ pm.test("Validate error message", function () {pm.expect(messageJsonPath).to.be.
     with open(file_path_size, "w") as file:
         file.write(test_generic)
 
-# Adicione a função get_user_request_names() 
 
 def get_user_request_names():
 
