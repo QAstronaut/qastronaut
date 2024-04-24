@@ -67,6 +67,7 @@ user_request_names = get_user_request_names()
 
 if request_method == "GET":
     edit_and_send_requests(api_key, collection_id, folder_id, curl_file_path, request_method, request_headers, "console.log('Test passed')")
+    print("")
     print("Create request GET success")
 else:
     new_request_empty = create_test_empty(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url)
