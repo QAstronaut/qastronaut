@@ -104,7 +104,7 @@ def default_test_body():
     file_path_nonexistent = os.path.join("config", "tests", "body", "nonexistent")
     file_path_empty = os.path.join("config", "tests", "body", "empty")
     file_path_null = os.path.join("config", "tests", "body", "null")
-    file_path_size = os.path.join("config", "tests", "body", "size")
+    file_path_lenght = os.path.join("config", "tests", "body", "lenght")
     file_path_invalid = os.path.join("config", "tests", "body", "invalid")
     
     test_generic = '''var resbody = JSON.parse(responseBody)
@@ -129,7 +129,7 @@ pm.test("Validate error message", function () {pm.expect(resbody.message).to.be.
     with open(file_path_invalid, "w") as file:
         file.write(test_generic)
     
-    with open(file_path_size, "w") as file:
+    with open(file_path_lenght, "w") as file:
         file.write(test_generic)
 
 def default_test_get():
@@ -137,7 +137,7 @@ def default_test_get():
     file_path_nonexistent = os.path.join("config", "tests", "params", "nonexistent")
     file_path_empty = os.path.join("config", "tests", "params", "empty")
     file_path_null = os.path.join("config", "tests", "params", "null")
-    file_path_size = os.path.join("config", "tests", "params", "size")
+    file_path_lenght = os.path.join("config", "tests", "params", "length")
     file_path_invalid = os.path.join("config", "tests", "params", "invalid")
     
     test_generic = '''var resbody = JSON.parse(responseBody)
@@ -164,7 +164,7 @@ pm.test("Validate error message", function () {pm.expect(resbody.message).to.be.
     with open(file_path_invalid, "w") as file:
         file.write(test_generic)
     
-    with open(file_path_size, "w") as file:
+    with open(file_path_lenght, "w") as file:
         file.write(test_generic)
 
 def get_user_request_names():
