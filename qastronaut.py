@@ -66,7 +66,7 @@ print('\n-----------------------------------------------------------------------
 user_request_names = get_user_request_names()
 
 if request_method == "GET":
-    edit_and_send_requests(api_key, collection_id, folder_id, curl_file_path, request_method, request_headers, "console.log('Test passed')")
+    edit_and_send_requests(api_key, collection_id, folder_id, curl_file_path, request_method, request_headers)
     print("")
     print("Create request GET success")
 else:
