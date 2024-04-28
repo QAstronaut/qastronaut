@@ -1,5 +1,6 @@
-from functions.create_postman import create_collection, create_folder, create_test_empty, create_test_null, create_test_nonexistent, create_test_invalid, create_test_lenght
-from functions.create_postman_GET import edit_and_send_requests
+from functions.create_postman import create_collection, create_folder
+from functions.test_body import create_test_empty, create_test_null, create_test_nonexistent, create_test_invalid, create_test_lenght
+from functions.test_params import edit_and_send_requests
 from functions.fetch_data_postman import extract_curl_data
 from functions.welcome import welcome, names, get_user_request_names, lost_api_key
 import os
