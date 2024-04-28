@@ -65,7 +65,7 @@ if runner.strip().lower() not in ["y", ""]:
 print('\n----------------------------------------------------------------------------------------------------------------------------\n')
 user_request_names = get_user_request_names()
 
-if request_method == "GET":
+if request_body is None:
     edit_and_send_requests(api_key, collection_id, folder_id, curl_file_path, request_method, request_headers)
     print("")
     print("Create request GET success")

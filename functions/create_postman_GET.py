@@ -10,7 +10,7 @@ def read_curl_file(file_path):
     return url
 
 def read_test_script(test_type):
-    file_path = f'config/tests/body/{test_type}'
+    file_path = f'config/tests/params/{test_type}'
     try:
         with open(file_path, 'r') as file:
             script_content = file.read()
@@ -46,7 +46,7 @@ def create_request(api_key, collection_id, folder_id, request_name, request_meth
                 "listen": "test",
                 "script": {
                     "id": "a8608e1a-ce4b-4129-8c89-930d26ae0f6a",
-                    "exec": test_script.split('\n'),  # Assume que test_script é uma string
+                    "exec": [test_script],
                     "type": "text/javascript"
                 }
             }
@@ -64,11 +64,11 @@ def edit_and_send_requests(api_key, collection_id, folder_id, file_path, request
 
     if not parsed_params:
         print("No test scenarios can be created due to the lack of parameters.")
-        request_name = "Request sem parâmetros"
+        request_name = "Request without params"
         request_url = base_url
         test_type = "No Parameters"
         test_script = read_test_script('empty')  # Assume 'empty' script for the scenario without parameters
-        create_request(api_key, collection_id, folder_id, request_name, request_method, request_headers, request_url, test_script, test_type, "None", "None")
+        create_request(api_key, collection_id, folder_id, request_name, request_method, request_headers, request_url, test_script, test_type)
         return
     
     for key, original_value in parsed_params.items():
