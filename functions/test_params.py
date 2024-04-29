@@ -1,6 +1,8 @@
 import requests
 import json
 
+ct_counter = 1
+
 def read_curl_file(file_path):
     with open(file_path, 'r') as file:
         curl_command = file.read()
@@ -30,7 +32,7 @@ def parse_query_params(url):
     else:
         return {}
 
-def create_request(api_key, collection_id, folder_id, request_name, request_method, request_headers, request_url, test_script, test_type, key, value):
+def create_request(api_key, collection_id, folder_id, request_name, request_method, request_headers, request_url, test_script):
     url = f'https://api.getpostman.com/collections/{collection_id}/requests?folder={folder_id}'
     headers = {
         'Content-Type': 'application/json',
@@ -57,7 +59,7 @@ def create_request(api_key, collection_id, folder_id, request_name, request_meth
 
 
 
-def edit_and_send_requests(api_key, collection_id, folder_id, file_path, request_method, request_headers):
+def edit_and_send_requests(api_key, collection_id, folder_id, user_request_names, file_path, request_method, request_headers):
     original_url = read_curl_file(file_path)
     base_url = original_url.split('?')[0]
     parsed_params = parse_query_params(original_url)
@@ -67,12 +69,14 @@ def edit_and_send_requests(api_key, collection_id, folder_id, file_path, request
         request_name = "Request without params"
         request_url = base_url
         test_type = "No Parameters"
-        test_script = read_test_script('empty')  # Assume 'empty' script for the scenario without parameters
-        create_request(api_key, collection_id, folder_id, request_name, request_method, request_headers, request_url, test_script, test_type)
+        test_script = read_test_script('empty')
+        create_request(api_key, collection_id, folder_id, request_name, request_method, request_headers, request_url, test_script)
         return
     
     for key, original_value in parsed_params.items():
+        global ct_counter
         for test_type in ['empty', 'null', 'invalid', 'nonexistent', 'length']:
+            ct_counter += 1
             test_script = read_test_script(test_type)
             if test_type == 'nonexistent':
                 temp_params = parsed_params.copy()
@@ -86,6 +90,7 @@ def edit_and_send_requests(api_key, collection_id, folder_id, file_path, request
                 edited_query_string = "&".join(f"{k}={v}" for k, v in parsed_params.items())
                 edited_url = f"{base_url}?{edited_query_string}"
 
-            request_name = f"Edited GET Request - {key} {test_type.capitalize()}"
-            create_request(api_key, collection_id, folder_id, request_name, request_method, request_headers, edited_url, test_script, test_type.capitalize(), key, test_value if test_type != 'nonexistent' else "N/A")
-            parsed_params[key] = original_value  # Restore the original value for the next test
+            request_name = f"CT{str(ct_counter).zfill(3)} {str(key)} {test_type} {user_request_names[0]}"
+            create_request(api_key, collection_id, folder_id, request_name, request_method, request_headers, edited_url, test_script)
+            print(f'{key} was tested {test_type}')
+            parsed_params[key] = original_value
