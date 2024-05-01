@@ -1,6 +1,9 @@
+import json
+import sys
 from functions.create_postman import create_collection, create_folder, create_test_empty, create_test_null, create_test_nonexistent, create_test_invalid, create_test_lenght
 from functions.fetch_data_postman import extract_curl_data
-from functions.welcome import welcome, names, get_user_request_names,lost_api_key
+from functions.welcome import welcome, names, get_user_request_names
+from functions.api_key_manager import load_api_key,lost_api_key
 import os
 import argparse
 
@@ -13,11 +16,21 @@ parser.add_argument('--init', action='store_true', help='Perform initial setup')
 args = parser.parse_args()
 
 if args.init:
-    api_key = welcome()
-    print("\n\nPlease put the curl command in a text file named 'config/requests/curl.txt'.")
-    exit()
+        api_key = load_api_key()
+        print("\n\nPlease put the     curl command in a text file named 'config/requests/curl.txt'.")
+        sys.exit()  
+
 else:
-    api_key = lost_api_key()
+        api_key = lost_api_key()
+        while not (len(api_key) == 64 and api_key.startswith("PMAK-")):
+            api_key = input("\nInvalid API KEY\nInsert a valid API KEY: ").strip()
+
+        # update the api key in file api_key.json
+        config_dir = 'config'
+        api_key_file = os.path.join(config_dir, 'api_key.json')
+        config = {'api_key': api_key}
+        with open(api_key_file, 'w') as config_file:
+            json.dump(config, config_file, indent=4)
 
 # Aviso para colocar o comando curl em um arquivo txt
 print("\n\nPlease put the curl command in a text file named 'config/requests/curl.txt' and then press 'Enter'.")
@@ -52,7 +65,6 @@ except FileNotFoundError:
     exit()
 
 
-
 request_method, request_url, request_body, request_headers = extract_curl_data(curl_command)
 
 collection_name, folder_name = names()
@@ -60,7 +72,6 @@ collection_name, folder_name = names()
 collection_id = create_collection(api_key, collection_name)
 
 folder_id = create_folder(collection_id, folder_name, api_key)
-
 
 print(f"\nRequest Method: {request_method}")
 print(f"Request URL: {request_url}")
@@ -79,4 +90,4 @@ print('-------------------------------------------------------------------------
 new_request_invalid = create_test_invalid(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url)
 print('----------------------------------------------------------------------------------------------------------------------------')
 new_request_lenght = create_test_lenght(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url)
-print('---------------------------------------------------End----------------------------------------------------------------------')
+print('------------------------------------------------------------End------------------------------------------------------------')
