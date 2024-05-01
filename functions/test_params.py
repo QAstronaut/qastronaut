@@ -59,7 +59,7 @@ def create_request(api_key, collection_id, folder_id, request_name, request_meth
 
 
 
-def edit_and_send_requests(api_key, collection_id, folder_id, user_request_names, file_path, request_method, request_headers):
+def edit_and_send_requests(api_key, collection_id, folder_id, user_request_names, file_path, request_method):
     original_url = read_curl_file(file_path)
     base_url = original_url.split('?')[0]
     parsed_params = parse_query_params(original_url)
