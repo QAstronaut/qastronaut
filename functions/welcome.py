@@ -57,6 +57,8 @@ def welcome():
 
     
 
+    return message_initial
+
 def names():
 
     collection_name = input("What will the name of the collection be? ")
