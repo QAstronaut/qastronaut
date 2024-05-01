@@ -16,8 +16,12 @@ parser.add_argument('--init', action='store_true', help='Perform initial setup')
 args = parser.parse_args()
 
 if args.init:
+    message_initial = welcome()
+    print(f"\nPlease put the curl command in a text file named 'config/requests/curl.txt'.")
+    exit()
+
+if args.init:
         api_key = load_api_key()
-        print("\n\nPlease put the     curl command in a text file named 'config/requests/curl.txt'.")
         sys.exit()  
 
 else:
