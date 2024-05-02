@@ -36,12 +36,15 @@ def lost_api_key():
             config = json.load(config_file)
         api_key = config.get('api_key', '')
 
-
-
     except (FileNotFoundError, ValueError):
         
         # Lidar com a exceção aqui
-        print("The API key is missing, invalid, or the api_key.json file is empty.")
+        message_initial = (
+        """Welcome to your test suite automator!\n\n
+        Before we dive into the hard work, I'll need some information.\n
+        *** No information provided will be stored outside your machine ***\n"""
+    )
+        print('\n\n' + message_initial)
         api_key = input("What is your API KEY? ").strip()
         
 

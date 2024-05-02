@@ -22,12 +22,14 @@ if args.init:
 
 if args.init:
         api_key = load_api_key()
+        while not (len(api_key) == 64 and api_key.startswith("PMAK-")):
+            print("The API key is missing, invalid, or the api_key.json file is empty.")
         sys.exit()  
 
 else:
         api_key = lost_api_key()
         while not (len(api_key) == 64 and api_key.startswith("PMAK-")):
-            api_key = input("\nInvalid API KEY\nInsert a valid API KEY: ").strip()
+            api_key = input("\nThe API key is missing, invalid, or the api_key.json file is empty.\nInsert a valid API KEY: ").strip()
 
         # update the api key in file api_key.json
         config_dir = 'config'
