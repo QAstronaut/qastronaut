@@ -59,6 +59,7 @@ def create_request(api_key, collection_id, folder_id, request_name, request_meth
         ]
     }
     response = requests.post(url, headers=headers, json=data)
+    print(response)
     return response
 
 

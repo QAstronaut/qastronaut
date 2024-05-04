@@ -68,7 +68,8 @@ user_request_names = get_user_request_names()
 
 if request_body is None:
     edit_and_send_requests(api_key, collection_id, folder_id, curl_file_path, request_method, request_headers)
-    print("End")
+    print('-------------------------------')
+    print("\nEnd")
 else:
     new_request_empty = create_test_empty(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url)
     print('-------------------------------')
@@ -79,4 +80,5 @@ else:
     new_request_invalid = create_test_invalid(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url)
     print('-------------------------------')
     new_request_length = create_test_lenght(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url)
-    print("End")
+    print('-------------------------------')
+    print("\nEnd")
