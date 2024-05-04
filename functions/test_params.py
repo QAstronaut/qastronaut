@@ -4,12 +4,16 @@ import json
 ct_counter = 1
 
 def read_curl_file(file_path):
-    with open(file_path, 'r') as file:
-        curl_command = file.read()
-    url_start = curl_command.find('"') + 1
-    url_end = curl_command.find('"', url_start)
-    url = curl_command[url_start:url_end]
-    return url
+    try:
+        with open(file_path, 'r') as file:
+            curl_command = file.read()
+        url_start = curl_command.find('"') + 1
+        url_end = curl_command.find('"', url_start)
+        url = curl_command[url_start:url_end]
+        return url
+    except FileNotFoundError:
+        print(f"Error: File not found - {file_path}")
+        return None
 
 def read_test_script(test_type):
     file_path = f'config/tests/params/{test_type}'
@@ -59,8 +63,11 @@ def create_request(api_key, collection_id, folder_id, request_name, request_meth
 
 
 
-def edit_and_send_requests(api_key, collection_id, folder_id, user_request_names, file_path, request_method):
+def edit_and_send_requests(api_key, collection_id, folder_id, file_path, request_method, request_headers):
     original_url = read_curl_file(file_path)
+    if original_url is None:
+        return  # Early exit if the URL could not be read due to file not being found.
+
     base_url = original_url.split('?')[0]
     parsed_params = parse_query_params(original_url)
 
@@ -73,7 +80,17 @@ def edit_and_send_requests(api_key, collection_id, folder_id, user_request_names
         create_request(api_key, collection_id, folder_id, request_name, request_method, request_headers, request_url, test_script)
         return
     
+    previous_key = None
+
     for key, original_value in parsed_params.items():
+
+        if previous_key is not None and key != previous_key:
+            print("")
+            print("-------------------------------")
+            print("")
+        previous_key = key
+        original_value = parsed_params[key]
+
         global ct_counter
         for test_type in ['empty', 'null', 'invalid', 'nonexistent', 'length']:
             ct_counter += 1
@@ -90,7 +107,7 @@ def edit_and_send_requests(api_key, collection_id, folder_id, user_request_names
                 edited_query_string = "&".join(f"{k}={v}" for k, v in parsed_params.items())
                 edited_url = f"{base_url}?{edited_query_string}"
 
-            request_name = f"CT{str(ct_counter).zfill(3)} {str(key)} {test_type} {user_request_names[0]}"
+            request_name = f"CT{str(ct_counter).zfill(3)} {key} {test_type}"
             create_request(api_key, collection_id, folder_id, request_name, request_method, request_headers, edited_url, test_script)
             print(f'{key} was tested {test_type}')
             parsed_params[key] = original_value
