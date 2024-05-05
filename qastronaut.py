@@ -63,21 +63,22 @@ runner = input("\nCan I run? (Y/n): ")
 if runner.strip().lower() not in ["y", ""]:
     exit()
 
-print('\n----------------------------------------------------------------------------------------------------------------------------\n')
+print('\n-------------------------------\n')
 user_request_names = get_user_request_names()
 
 if request_body is None:
     edit_and_send_requests(api_key, collection_id, folder_id, curl_file_path, request_method, request_headers)
-    print("")
-    print("Create request GET success")
+    print('-------------------------------')
+    print("\nEnd")
 else:
     new_request_empty = create_test_empty(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url)
-    print('----------------------------------------------------------------------------------------------------------------------------')
+    print('-------------------------------')
     new_request_null = create_test_null(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url)
-    print('----------------------------------------------------------------------------------------------------------------------------')
+    print('-------------------------------')
     new_request_nonexistent = create_test_nonexistent(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url)
-    print('----------------------------------------------------------------------------------------------------------------------------')
+    print('-------------------------------')
     new_request_invalid = create_test_invalid(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url)
-    print('----------------------------------------------------------------------------------------------------------------------------')
+    print('-------------------------------')
     new_request_length = create_test_lenght(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url)
-
+    print('-------------------------------')
+    print("\nEnd")
