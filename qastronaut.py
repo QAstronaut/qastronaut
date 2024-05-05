@@ -67,7 +67,7 @@ print('\n-----------------------------------------------------------------------
 user_request_names = get_user_request_names()
 
 if request_body is None:
-    edit_and_send_requests(api_key, collection_id, folder_id, curl_file_path, request_method, request_headers)
+    edit_and_send_requests(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_url)
     print("")
     print("Create request GET success")
 else:
