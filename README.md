@@ -87,7 +87,7 @@ Ensure that you have the following requirements met before getting started:
     ```
     > **Note:** In some cases, you may need to use `python3` or `py` instead of `python` to invoke the Python 3 interpreter.
 
-    This command will prompt for your [API Key](https://learning.postman.com/docs/developer/postman-api/authentication/) and create QAstronaut configuration folders.
+    This command will prompt for your Postman [API Key](https://learning.postman.com/docs/developer/postman-api/authentication/) and create QAstronaut configuration folders.
 
     After this process, QAstronaut is ready for use.
 
