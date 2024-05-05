@@ -59,11 +59,10 @@ def create_request(api_key, collection_id, folder_id, request_name, request_meth
         ]
     }
     response = requests.post(url, headers=headers, json=data)
+    print(response)
     return response
 
-
-
-def edit_and_send_requests(api_key, collection_id, folder_id, file_path, request_method, request_headers):
+def edit_and_send_requests(api_key, collection_id, folder_id, file_path, request_method, request_headers, user_request_names):
     original_url = read_curl_file(file_path)
     if original_url is None:
         return  # Early exit if the URL could not be read due to file not being found.
@@ -107,7 +106,7 @@ def edit_and_send_requests(api_key, collection_id, folder_id, file_path, request
                 edited_query_string = "&".join(f"{k}={v}" for k, v in parsed_params.items())
                 edited_url = f"{base_url}?{edited_query_string}"
 
-            request_name = f"CT{str(ct_counter).zfill(3)} {key} {test_type}"
+            request_name = f"CT{str(ct_counter).zfill(3)} {key} {test_type} {user_request_names[0]}"
             create_request(api_key, collection_id, folder_id, request_name, request_method, request_headers, edited_url, test_script)
             print(f'{key} was tested {test_type}')
             parsed_params[key] = original_value
