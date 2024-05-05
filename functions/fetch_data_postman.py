@@ -18,7 +18,7 @@ def extract_curl_data(curl_command):
         try:
             request_body = json.loads(request_body_json)
         except json.JSONDecodeError as e:
-            print("\nErro ao analisar o JSON do corpo da solicitação:", e)
+            print("\nError parsing request body JSON:", e)
             request_body = None
     else:
         request_body = None
