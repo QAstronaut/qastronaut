@@ -189,7 +189,7 @@ def create_test_invalid(api_key, collection_id, folder_id, user_request_names, r
 
 def create_test_lenght(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_body, request_url):
 
-    with open('config/tests/body/length', 'r') as file:
+    with open('config/tests/body/lenght', 'r') as file:
         test_script = file.read()
     
     # Esta função tem como objetivo testar a primeira key do request_body vazia.
@@ -210,7 +210,7 @@ def create_test_lenght(api_key, collection_id, folder_id, user_request_names, re
                     request_body[key] = decimal_value
             response = create_request(api_key, collection_id, folder_id, request_name, request_method, request_headers, request_body, request_url, test_script)
             request_body[key] = value
-            print(f'{key} was tested Length')
+            print(f'{key} was tested Lenght')
         else:
             if type(value) == dict:
                 for dict_key, dict_value in value.items():
@@ -229,7 +229,7 @@ def create_test_lenght(api_key, collection_id, folder_id, user_request_names, re
                                 request_body[key][dict_key] = decimal_value
                         response = create_request(api_key, collection_id, folder_id, request_name, request_method, request_headers, request_body, request_url, test_script)
                         request_body[key][dict_key] = dict_value
-                        print(f'{key} was tested Length')
+                        print(f'{key} was tested Lenght')
             elif type(value) == list:
                 pass
     if response.status_code == 200:
