@@ -1,8 +1,17 @@
 import requests
 import json
 
-ct_counter = 1
+ct_counter = 0
 
+def read_test_script(test_type):
+    file_path = f'config/tests/params/{test_type}'
+    try:
+        with open(file_path, 'r') as file:
+            script_content = file.read()
+            return script_content
+    except FileNotFoundError:
+        return "console.log('Error: Test script not found.')"
+    
 def read_curl_file(file_path):
     try:
         with open(file_path, 'r') as file:
@@ -15,18 +24,9 @@ def read_curl_file(file_path):
         print(f"Error: File not found - {file_path}")
         return None
 
-def read_test_script(test_type):
-    file_path = f'config/tests/params/{test_type}'
-    try:
-        with open(file_path, 'r') as file:
-            script_content = file.read()
-            return script_content
-    except FileNotFoundError:
-        return "console.log('Error: Test script not found.')"
-
-def parse_query_params(url):
-    if '?' in url:
-        params = url.split('?')[1]
+def parse_query_params(request_url):
+    if '?' in request_url:
+        params = request_url.split('?')[1]
         param_list = params.split('&')
         parsed_params = {}
         for param in param_list:
@@ -62,15 +62,13 @@ def create_request(api_key, collection_id, folder_id, request_name, request_meth
     print(response)
     return response
 
+def edit_and_send_requests(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_url):
+    if request_url is None:
 
-
-def edit_and_send_requests(api_key, collection_id, folder_id, file_path, request_method, request_headers):
-    original_url = read_curl_file(file_path)
-    if original_url is None:
         return  # Early exit if the URL could not be read due to file not being found.
 
-    base_url = original_url.split('?')[0]
-    parsed_params = parse_query_params(original_url)
+    base_url = request_url.split('?')[0]
+    parsed_params = parse_query_params(request_url)
 
     if not parsed_params:
         print("No test scenarios can be created due to the lack of parameters.")
@@ -108,7 +106,7 @@ def edit_and_send_requests(api_key, collection_id, folder_id, file_path, request
                 edited_query_string = "&".join(f"{k}={v}" for k, v in parsed_params.items())
                 edited_url = f"{base_url}?{edited_query_string}"
 
-            request_name = f"CT{str(ct_counter).zfill(3)} {key} {test_type}"
+            request_name = f"CT{str(ct_counter).zfill(3)} {key} {test_type} {user_request_names[0]}"
             create_request(api_key, collection_id, folder_id, request_name, request_method, request_headers, edited_url, test_script)
             print(f'{key} was tested {test_type}')
             parsed_params[key] = original_value
