@@ -18,13 +18,11 @@ args = parser.parse_args()
 if args.init:
     message_initial = welcome()
     print(f"\nPlease put the curl command in a text file named 'config/requests/curl.txt'.")
-    exit()
-
-if args.init:
-        api_key = load_api_key()
-        while not (len(api_key) == 64 and api_key.startswith("PMAK-")):
-            print("The API key is missing, invalid, or the api_key.json file is empty.")
-        sys.exit()  
+   
+    api_key = load_api_key()
+    while not (len(api_key) == 64 and api_key.startswith("PMAK-")):
+        print("The API key is missing, invalid, or the api_key.json file is empty.")
+    sys.exit()  
 
 else:
         api_key = lost_api_key()
