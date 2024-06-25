@@ -1,3 +1,5 @@
+from functions.create_postman import create_collection, create_folder, create_request, create_test_empty, create_test_invalid, create_test_lenght, create_test_nonexistent, create_test_null
+
 import pytest
 import requests
 import sys
@@ -7,7 +9,6 @@ import os
 module_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'functions'))
 sys.path.insert(0, module_dir)
 
-from functions.create_postman import create_collection, create_folder, create_request, create_test_empty, create_test_invalid, create_test_lenght, create_test_nonexistent, create_test_null
 
 
 # Mocking requests.post para evitar chamadas de rede durante os testes.
