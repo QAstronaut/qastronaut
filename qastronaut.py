@@ -2,7 +2,8 @@ from functions.create_postman import create_collection, create_folder
 from functions.test_body import create_test_empty, create_test_null, create_test_nonexistent, create_test_invalid, create_test_lenght
 from functions.test_params import edit_and_send_requests
 from functions.fetch_data_postman import extract_curl_data
-from functions.welcome import welcome, names, get_user_request_names, lost_api_key
+from functions.welcome import welcome, names, get_user_request_names
+from functions.api_key_manager import lost_api_key, load_api_key
 import os
 import argparse
 
@@ -11,9 +12,13 @@ parser.add_argument('--init', action='store_true', help='Perform initial setup')
 args = parser.parse_args()
 
 if args.init:
-    api_key = welcome()
+    
+    message_initial = welcome()
     print(f"\nPlease put the curl command in a text file named 'config/requests/curl.txt'.")
+    api_key = load_api_key()
     exit()
+    
+
 else:
     api_key = lost_api_key()
 
