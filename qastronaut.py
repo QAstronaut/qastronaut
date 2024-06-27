@@ -14,8 +14,9 @@ args = parser.parse_args()
 if args.init:
     
     message_initial = welcome()
-    print(f"\nPlease put the curl command in a text file named 'config/requests/curl.txt'.")
     api_key = load_api_key()
+    print(f"\nPlease put the curl command in a text file named 'config/requests/curl.txt'.")
+    
     exit()
     
 
