@@ -105,7 +105,7 @@ def edit_and_send_requests(api_key, collection_id, folder_id, user_request_names
                 parsed_params[key] = test_value
                 edited_query_string = "&".join(f"{k}={v}" for k, v in parsed_params.items())
                 edited_url = f"{base_url}?{edited_query_string}"
-            request_name = f"CT{str(ct_counter).zfill(3)} {key} {test_type}"
+            request_name = f"CT{str(ct_counter).zfill(3)} {key} {test_type} {user_request_names}"
             create_request(api_key, collection_id, folder_id, request_name, request_method, request_headers, edited_url, test_script)
             print(f'{key} was tested {test_type}')
             parsed_params[key] = original_value
