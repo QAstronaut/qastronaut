@@ -64,7 +64,6 @@ def create_request(api_key, collection_id, folder_id, request_name, request_meth
 
 def edit_and_send_requests(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_url):
     if request_url is None:
-
         return  # Early exit if the URL could not be read due to file not being found.
 
     base_url = request_url.split('?')[0]
@@ -101,7 +100,11 @@ def edit_and_send_requests(api_key, collection_id, folder_id, user_request_names
                 edited_url = f"{base_url}?{edited_query_string}"
                 test_value = "N/A"
             else:
-                test_value = {'empty': '', 'null': 'null', 'invalid': 'teste' if original_value.isdigit() else '1', 'length': original_value + 'a' * 100}[test_type]
+                if test_type == 'length':
+                    last_char = original_value[-1] if original_value else 'a'  # Default to 'a' if original_value is empty
+                    test_value = original_value + last_char * 99
+                else:
+                    test_value = {'empty': '', 'null': 'null', 'invalid': 'teste' if original_value.isdigit() else '1'}[test_type]
                 parsed_params[key] = test_value
                 edited_query_string = "&".join(f"{k}={v}" for k, v in parsed_params.items())
                 edited_url = f"{base_url}?{edited_query_string}"
