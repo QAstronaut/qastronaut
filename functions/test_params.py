@@ -64,7 +64,6 @@ def create_request(api_key, collection_id, folder_id, request_name, request_meth
 
 def edit_and_send_requests(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_url):
     if request_url is None:
-
         return  # Early exit if the URL could not be read due to file not being found.
 
     base_url = request_url.split('?')[0]
@@ -101,10 +100,16 @@ def edit_and_send_requests(api_key, collection_id, folder_id, user_request_names
                 edited_url = f"{base_url}?{edited_query_string}"
                 test_value = "N/A"
             else:
-                test_value = {'empty': '', 'null': 'null', 'invalid': 'teste' if original_value.isdigit() else '1', 'length': original_value + 'a' * 100}[test_type]
+                # Ajuste para repetir o último dígito no teste de 'length' para números
+                if test_type == 'length' and original_value.isdigit():
+                    test_value = original_value + original_value[-1] * (100 - len(original_value))
+                else:
+                    test_value = {'empty': '', 'null': 'null', 'invalid': 'teste' if original_value.isdigit() else '1', 'length': original_value + 'a' * 100}[test_type]
+                
                 parsed_params[key] = test_value
                 edited_query_string = "&".join(f"{k}={v}" for k, v in parsed_params.items())
                 edited_url = f"{base_url}?{edited_query_string}"
+                
             request_name = f"CT{str(ct_counter).zfill(3)} {key} {test_type} {user_request_names}"
             create_request(api_key, collection_id, folder_id, request_name, request_method, request_headers, edited_url, test_script)
             print(f'{key} was tested {test_type}')

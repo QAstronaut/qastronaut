@@ -173,11 +173,16 @@ def create_test_lenght(api_key, collection_id, folder_id, user_request_names, re
             request_name = f"CT{str(ct_counter).zfill(3)} {str(key)} Lenght {user_request_names[0]}" 
             ct_counter += 1
             if type(value) == str:
-                request_body[key] = (str(value).rstrip() + ' ') * 100
+                # Repete apenas a última letra da string
+                request_body[key] = value + value[-1] * (100 - len(value))  
             elif type(value) == int:
-                request_body[key] = int(str(value) * 100)
+                # Repete apenas o último dígito do número
+                request_body[key] = int(str(value) + str(value)[-1] * (100 - len(str(value))))
             elif type(value) == float:
-                request_body[key] = Decimal((str(value).split('.')[0] * 100) + '.' + str(value).split('.')[1])
+                # Para floats, repete o último dígito da parte inteira e decimal separadamente
+                integer_part, decimal_part = str(value).split('.')
+                new_value = integer_part + integer_part[-1] * (100 - len(integer_part)) + '.' + decimal_part + decimal_part[-1] * (100 - len(decimal_part))
+                request_body[key] = Decimal(new_value)
             response = create_request(api_key, collection_id, folder_id, request_name, request_method, request_headers, request_body, request_url, test_script)
             request_body[key] = value
             print(f'{key} was tested lenght')
@@ -186,11 +191,15 @@ def create_test_lenght(api_key, collection_id, folder_id, user_request_names, re
                 if type(dict_value) == str:
                     request_name = f"CT{str(ct_counter).zfill(3)} {key}/{str(dict_key)} Lenght {user_request_names[0]}" 
                     ct_counter += 1
-                    request_body[key][dict_key] = (str(dict_value).rstrip() + ' ') * 100
+                    # Repete apenas a última letra da string dentro do dict
+                    request_body[key][dict_key] = dict_value + dict_value[-1] * (100 - len(dict_value))  
                 elif type(dict_value) == int:
-                    request_body[key][dict_key] = int(str(dict_value) * 100)
+                    # Repete apenas o último dígito do número
+                    request_body[key][dict_key] = int(str(dict_value) + str(dict_value)[-1] * (100 - len(str(dict_value))))
                 elif type(dict_value) == float:
-                    request_body[key][dict_key] = Decimal((str(dict_value).split('.')[0] * 100) + '.' + str(dict_value).split('.')[1])
+                    integer_part, decimal_part = str(dict_value).split('.')
+                    new_value = integer_part + integer_part[-1] * (100 - len(integer_part)) + '.' + decimal_part + decimal_part[-1] * (100 - len(decimal_part))
+                    request_body[key][dict_key] = Decimal(new_value)
                 response = create_request(api_key, collection_id, folder_id, request_name, request_method, request_headers, request_body, request_url, test_script)
                 request_body[key][dict_key] = dict_value
                 print(f'{key} was tested lenght')
@@ -198,7 +207,8 @@ def create_test_lenght(api_key, collection_id, folder_id, user_request_names, re
             if value:  # Verifica se a lista não está vazia
                 request_name = f"CT{str(ct_counter).zfill(3)} {key} Lenght {user_request_names[0]}"
                 ct_counter += 1
-                request_body[key] = value + [value[-1]] * (100 - len(value))  # Repete o último elemento até atingir o comprimento desejado
+                # Repete o último elemento da lista até atingir o comprimento desejado
+                request_body[key] = value + [value[-1]] * (100 - len(value))  
                 response = create_request(api_key, collection_id, folder_id, request_name, request_method, request_headers, request_body, request_url, test_script)
                 request_body[key] = value  # Restaura o valor original
                 print(f'{key} was tested lenght')
