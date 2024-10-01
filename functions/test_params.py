@@ -63,6 +63,9 @@ def create_request(api_key, collection_id, folder_id, request_name, request_meth
     return response
 
 def edit_and_send_requests(api_key, collection_id, folder_id, user_request_names, request_method, request_headers, request_url):
+    # Adiciona print para exibir user_request_names no terminal
+    print(f"Valor de user_request_names: {user_request_names}")
+    
     if request_url is None:
         return  # Early exit if the URL could not be read due to file not being found.
 
@@ -110,7 +113,8 @@ def edit_and_send_requests(api_key, collection_id, folder_id, user_request_names
                 edited_query_string = "&".join(f"{k}={v}" for k, v in parsed_params.items())
                 edited_url = f"{base_url}?{edited_query_string}"
                 
-            request_name = f"CT{str(ct_counter).zfill(3)} {key} {test_type} {user_request_names}"
+            # Ajustando para seguir o padrão do POST
+            request_name = f"CT{str(ct_counter).zfill(3)} {key} {test_type.capitalize()} {user_request_names[0]}"
             create_request(api_key, collection_id, folder_id, request_name, request_method, request_headers, edited_url, test_script)
             print(f'{key} was tested {test_type}')
             parsed_params[key] = original_value
