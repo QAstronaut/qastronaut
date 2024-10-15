@@ -17,6 +17,7 @@ def welcome():
     request_name_dir ='config/request_names'
     user_request_path = 'config/request_name/user_requests.txt'
     test_body_dir = 'config/tests/body'
+    test_params_dir = 'config/tests/params'
     
 
     # Define o diretório de solicitações dentro do diretório de configuração
@@ -24,6 +25,7 @@ def welcome():
     test_dir = os.path.join(config_dir, 'tests')
     request_name_dir = os.path.join(config_dir, 'requests_names')
     test_body_dir = os.path.join(test_dir, 'body')
+    test_params_dir = os.path.join(test_dir, 'params')
     
     user_request_path = os.path.join(request_name_dir, 'user_requests.txt')
     user_curl_path = os.path.join(requests_dir, 'curl.txt')
@@ -44,6 +46,9 @@ def welcome():
 
     if not os.path.exists(test_body_dir):
         os.makedirs(test_body_dir)
+    
+    if not os.path.exists(test_params_dir):
+        os.makedirs(test_params_dir)
         
     with open(user_request_path, 'w') as file:
         file.write("QAstronaut")
@@ -53,37 +58,12 @@ def welcome():
 
 
 
-    default_test()
+    default_test_body()
+    default_test_get()
 
-    # Define o caminho completo para o arquivo api_key.json
-    api_key_file = os.path.join(config_dir, 'api_key.json')
+   
 
-    # Check if the api_key.json file exists
-    try:
-        with open(api_key_file, 'r') as config_file:
-            config = json.load(config_file)
-
-        api_key = config.get('api_key', '')
-
-    except FileNotFoundError:
-        
-        message_initial = (
-        """Welcome to your test suite automator!\n\n
-        Before we dive into the hard work, I'll need some information.\n
-        *** No information provided will be stored outside your machine ***\n"""
-    )
-        print('\n\n' + message_initial)
-
-        api_key = input("What's your API key? ").strip()
-
-        config = {
-            'api_key': api_key
-        }
-
-        with open(api_key_file, 'w') as config_file:
-            json.dump(config, config_file, indent=4)
-
-    return api_key
+    return message_initial
 
 def names():
 
@@ -93,23 +73,22 @@ def names():
     return collection_name, folder_name
 
 
-def default_test():
+def default_test_body():
     # Define o caminho completo do arquivo
     file_path_nonexistent = os.path.join("config", "tests", "body", "nonexistent")
     file_path_empty = os.path.join("config", "tests", "body", "empty")
     file_path_null = os.path.join("config", "tests", "body", "null")
-    file_path_size = os.path.join("config", "tests", "body", "size")
+    file_path_lenght = os.path.join("config", "tests", "body", "lenght")
     file_path_invalid = os.path.join("config", "tests", "body", "invalid")
     
     test_generic = '''var resbody = JSON.parse(responseBody)
 
 var statusCode = 400
 var messageError = ""
-var messageJsonPath = "resbody.message"
 
 pm.test("Status code is " + statusCode, function () {pm.response.to.have.status(statusCode);});
 
-pm.test("Validate error message", function () {pm.expect(messageJsonPath).to.be.contains(messageError);}); '''
+pm.test("Validate error message", function () {pm.expect(resbody.message).to.be.contains(messageError);}); '''
 
     # Cria o arquivo e escreve o conteúdo nele
     with open(file_path_nonexistent, "w") as file:
@@ -124,10 +103,43 @@ pm.test("Validate error message", function () {pm.expect(messageJsonPath).to.be.
     with open(file_path_invalid, "w") as file:
         file.write(test_generic)
     
-    with open(file_path_size, "w") as file:
+    with open(file_path_lenght, "w") as file:
         file.write(test_generic)
 
-# Adicione a função get_user_request_names() 
+def default_test_get():
+    # Define o caminho completo do arquivo
+    file_path_nonexistent = os.path.join("config", "tests", "params", "nonexistent")
+    file_path_empty = os.path.join("config", "tests", "params", "empty")
+    file_path_null = os.path.join("config", "tests", "params", "null")
+    file_path_lenght = os.path.join("config", "tests", "params", "length")
+    file_path_invalid = os.path.join("config", "tests", "params", "invalid")
+    
+    test_generic = '''var resbody = JSON.parse(responseBody)
+
+var statusCode = 400
+var messageError = ""
+
+pm.test("Status code is " + statusCode, function () {pm.response.to.have.status(statusCode);});
+
+pm.test("Response Body is not empty", function () {pm.expect(resbody).to.be.not.empty;});
+
+pm.test("Validate error message", function () {pm.expect(resbody.message).to.be.contains(messageError);}); '''
+
+    # Cria o arquivo e escreve o conteúdo nele
+    with open(file_path_nonexistent, "w") as file:
+        file.write(test_generic)
+    
+    with open(file_path_empty, "w") as file:
+        file.write(test_generic)
+
+    with open(file_path_null, "w") as file:
+        file.write(test_generic)
+
+    with open(file_path_invalid, "w") as file:
+        file.write(test_generic)
+    
+    with open(file_path_lenght, "w") as file:
+        file.write(test_generic)
 
 def get_user_request_names():
 
